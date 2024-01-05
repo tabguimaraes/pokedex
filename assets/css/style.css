@@ -53,10 +53,11 @@ body {
 #pokemonName,
 span {
   display: flex;
+  align-items: center;
 }
 
 #pokemonName > span > img {
-  height: clamp(0.6rem, -0.125rem + 1.2vw, 1.8vw);
+  height: clamp(0.6rem, -0.125rem + 1.1vw, 1.8vw);
 }
 #pokemonName {
   top: 6.8%;
