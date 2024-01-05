@@ -21,14 +21,14 @@ body {
 
 #container {
   margin: auto;
-  max-width: 800px;
+  max-width: 1200px;
   height: fit-content;
   position: relative;
 }
 
 #tvBasel {
   max-height: 100vh;
-  margin: auto;
+  width: 100%;
 }
 
 #pokemonName,
