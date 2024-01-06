@@ -46,7 +46,7 @@ function initPokemon() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (pokemonInput.value == 0 || pokemonInput.value === "???") {
+      if (pokemonInput.value == 0 || pokemonInput.value === "?") {
         pokemonSprite.src = "./assets/img/missingno_.png";
         pokemonID = 0;
         pokemonName.innerHTML = `<span><img src="./assets/img/favicon-16x16.png" alt="" /></span>&nbsp;${pokemonID} - MissingNo.`;
