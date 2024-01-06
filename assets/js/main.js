@@ -46,11 +46,11 @@ function initPokemon() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (pokemonInput.value == 0) {
+      if (pokemonInput.value == 0 || pokemonInput.value === "???") {
         pokemonSprite.src = "./assets/img/missingno_.png";
         pokemonID = 0;
         pokemonName.innerHTML = `<span><img src="./assets/img/favicon-16x16.png" alt="" /></span>&nbsp;${pokemonID} - MissingNo.`;
-        pokemonType.innerText = `Bird | Normal`;
+        pokemonType.innerText = `Tipo ???`;
         pokemonHeight.innerText = `${10 * 10}cm`;
         pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
         pokemonInput.value = "";
