@@ -58,9 +58,9 @@ function initPokemon() {
       }
 
       if (pokemonInput.value < 0) {
-        pokemonInput.value = "Não encontrado";
+        pokemonInput.setAttribute("placeholder", "Não encontrado");
+        pokemonInput.value = "";
         setTimeout(() => {
-          pokemonInput.value = "";
           pokemonInput.setAttribute("placeholder", "Nome Ou Número");
         }, 3000);
       } else {
