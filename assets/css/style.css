@@ -16,7 +16,8 @@ img {
 
 body {
   background: linear-gradient(to right, #6ab7f5, #fff, #f53434);
-  padding: 2% 1%;
+  padding: 1%;
+  overflow: hidden;
 }
 
 #container {
@@ -27,8 +28,8 @@ body {
 }
 
 #tvBasel {
-  max-height: 100vh;
-  width: 100%;
+  max-height: 95vh;
+  width: 100vw;
 }
 
 #pokemonName,
@@ -98,12 +99,12 @@ span {
 }
 
 #btnBefore {
-  left: 77.5%;
+  left: 77.8%;
   padding: 0.2% 4.5% 0.2% 1.5%;
 }
 
 #btnNext {
-  left: 88.8%;
+  left: 89.3%;
   padding: 0.2% 1.5% 0.2% 4.5%;
 }
 
