@@ -23,7 +23,7 @@ body {
 #container {
   margin: auto;
   /* min-width: 200px; */
-  max-width: 800px;
+  max-width: 1200px;
   height: fit-content;
   position: relative;
 }
