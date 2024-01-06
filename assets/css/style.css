@@ -80,7 +80,7 @@ body {
   outline: none;
   border: none;
   max-width: 19%;
-  background-color: #444;
+  /* background-color: #444; */
 }
 
 #pokemonSearch {
