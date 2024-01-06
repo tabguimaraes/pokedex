@@ -46,10 +46,21 @@ function initPokemon() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (pokemonInput.value < 1) {
+      if (pokemonInput.value == 0) {
+        pokemonSprite.src = "./assets/img/missingno_.png";
+        pokemonID = 0;
+        pokemonName.innerHTML = `<span><img src="./assets/img/favicon-16x16.png" alt="" /></span>&nbsp;${pokemonID} - MissingNo.`;
+        pokemonType.innerText = `Bird | Normal`;
+        pokemonHeight.innerText = `${10 * 10}cm`;
+        pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
         pokemonInput.value = "";
-        pokemonInput.setAttribute("placeholder", "Não encontrado");
+        pokemonInput.setAttribute("placeholder", "Nome Ou Número");
+      }
+
+      if (pokemonInput.value < 0) {
+        pokemonInput.value = "Não encontrado";
         setTimeout(() => {
+          pokemonInput.value = "";
           pokemonInput.setAttribute("placeholder", "Nome Ou Número");
         }, 3000);
       } else {
