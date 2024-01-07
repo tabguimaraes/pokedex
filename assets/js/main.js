@@ -8,9 +8,8 @@ function initPokemon() {
   const pokemonInput = document.querySelector("#pokemonInput");
   const btnBefore = document.querySelector("#btnBefore");
   const btnNext = document.querySelector("#btnNext");
-  const type1 = document.querySelector("#type1");
-  const type2 = document.querySelector("#type2");
   let pokemonID;
+  let typeName;
 
   function searchPokemon(pokemon) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()).then(async (pokemon) => {
@@ -37,130 +36,169 @@ function initPokemon() {
 
   function insertData(pokemon) {
     pokemonID = pokemon["id"];
-    pokemonName.innerHTML = `<span><img src="./assets/img/favicon-16x16.png" alt="" /></span>&nbsp;${pokemon["id"]} - ${pokemon["name"]}`;
-    switch (pokemon["types"]["0"]["type"]["name"]) {
-      case "grass":
-        pokemonType.innerHTML = `<span class='types grass'>Grama</span>`;
-        break;
-      case "normal":
-        pokemonType.innerText = "Normal";
-        break;
-      case "poison":
-        pokemonType.innerText = "Veneno";
-        break;
-      case "fire":
-        pokemonType.innerHTML = `<span class='types fire'>Fogo</span>`;
-        break;
-      case "fly":
-        pokemonType.innerText = "Voador";
-        break;
-      case "water":
-        pokemonType.innerHTML = `<span class='types water'>Água</span>`;
-        break;
+    pokemonName.innerHTML = `<span><img src="./assets/img/favicon-16x16.png" alt="" /></span>&nbsp;${pokemonID} - ${pokemon["name"]}`;
+
+    const typeID0 = pokemon["types"]["0"]["type"]["name"];
+
+    switch (typeID0) {
       case "bug":
-        pokemonType.innerText = "Inseto";
-        break;
-      case "ground":
-        pokemonType.innerText = "Terra";
-        break;
-      case "psychic":
-        pokemonType.innerText = "Psíquico";
-        break;
-      case "ghost":
-        pokemonType.innerText = "Fantasma";
-        break;
-      case "rock":
-        pokemonType.innerText = "Pedra";
-        break;
-      case "electric":
-        pokemonType.innerText = "Elétrico";
-        break;
-      case "fairy":
-        pokemonType.innerText = "Fada";
-        break;
-      case "fighting":
-        pokemonType.innerText = "Lutador";
-        break;
-      case "ice":
-        pokemonType.innerText = "Gelo";
-        break;
-      case "steel":
-        pokemonType.innerText = "Metal";
-        break;
-      case "dragon":
-        pokemonType.innerText = "Dragão";
+        typeName = "Inseto";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
         break;
       case "dark":
-        pokemonType.innerText = "Sombrio";
+        typeName = "Sombrio";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "dragon":
+        typeName = "Dragão";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "electric":
+        typeName = "Elétrico";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "fairy":
+        typeName = "Fada";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "fighting":
+        typeName = "Lutador";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "fire":
+        typeName = "Fogo";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "flying":
+        typeName = "Voador";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "ghost":
+        typeName = "Fantasma";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "grass":
+        typeName = "Grama";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "ground":
+        typeName = "Terra";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "ice":
+        typeName = "Gelo";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "normal":
+        typeName = "Normal";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "poison":
+        typeName = "Veneno";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "psychic":
+        typeName = "Psíquico";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "rock":
+        typeName = "Pedra";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "steel":
+        typeName = "Metal";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        break;
+      case "water":
+        typeName = "Água";
+        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
         break;
 
       default:
         break;
     }
-    switch (pokemon["types"]["1"]["type"]["name"]) {
-      case "poison":
-        pokemonType.innerHTML += `&nbsp;<span class='types poison'>Veneno</span>`;
-        break;
 
-      //   case "grass":
-      //     // pokemonType.innerText += " | Grama";
-      //     pokemonType.innerHTML += `<span class='grass'>Grama</span>`;
+    if (pokemon["types"].length < 2) {
+    } else {
+      const typeID1 = pokemon["types"]["1"]["type"]["name"];
 
-      //     break;
-      //   case "normal":
-      //     pokemonType.innerText += " | Normal";
-      //     break;
-      //   case "poison":
-      //     pokemonType.innerText += " | Veneno";
-      //     break;
-      //   case "fire":
-      //     pokemonType.innerText += " | Fogo";
-      //     break;
-      //   case "flying":
-      //     pokemonType.innerText += " | Voador";
-      //     break;
-      //   case "water":
-      //     pokemonType.innerText += " | Água";
-      //     break;
-      //   case "bug":
-      //     pokemonType.innerText += " | Inseto";
-      //     break;
-      //   case "ground":
-      //     pokemonType.innerText += " | Terra";
-      //     break;
-      //   case "psychic":
-      //     pokemonType.innerText += " | Psíquico";
-      //     break;
-      //   case "ghost":
-      //     pokemonType.innerText += " | Fantasma";
-      //     break;
-      //   case "rock":
-      //     pokemonType.innerText += " | Pedra";
-      //     break;
-      //   case "electric":
-      //     pokemonType.innerText += " | Elétrico";
-      //     break;
-      //   case "fairy":
-      //     pokemonType.innerText += " | Fada";
-      //     break;
-      //   case "fighting":
-      //     pokemonType.innerText += " | Lutador";
-      //     break;
-      //   case "ice":
-      //     pokemonType.innerText += " | Gelo";
-      //     break;
-      //   case "steel":
-      //     pokemonType.innerText += " | Metal";
-      //     break;
-      //   case "dragon":
-      //     pokemonType.innerText += " | Dragão";
-      //     break;
-      //   case "dark":
-      //     pokemonType.innerText += " | Sombrio";
-      //     break;
+      switch (typeID1) {
+        case "bug":
+          typeName = "Inseto";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "dark":
+          typeName = "Sombrio";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "dragon":
+          typeName = "Dragão";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "electric":
+          typeName = "Elétrico";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "fairy":
+          typeName = "Fada";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "fighting":
+          typeName = "Lutador";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "fire":
+          typeName = "Fogo";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "flying":
+          typeName = "Voador";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "ghost":
+          typeName = "Fantasma";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "grass":
+          typeName = "Grama";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "ground":
+          typeName = "Terra";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "ice":
+          typeName = "Gelo";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "normal":
+          typeName = "Normal";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "poison":
+          typeName = "Veneno";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "psychic":
+          typeName = "Psíquico";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "rock":
+          typeName = "Pedra";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "steel":
+          typeName = "Metal";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
+        case "water":
+          typeName = "Água";
+          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
     }
     pokemonHeight.innerText = `${pokemon["height"] * 10}cm`;
     pokemonWeight.innerText = `${pokemon["weight"] / 10}Kg`;
@@ -175,7 +213,7 @@ function initPokemon() {
         pokemonSprite.src = "./assets/img/missingno_.png";
         pokemonID = 0;
         pokemonName.innerHTML = `<span><img src="./assets/img/favicon-16x16.png" alt="" /></span>&nbsp;${pokemonID} - MissingNo.`;
-        pokemonType.innerText = `Bird | Normal`;
+        pokemonType.innerText = "Tipo: ???";
         pokemonHeight.innerText = `${10 * 10}cm`;
         pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
         pokemonInput.value = "";
