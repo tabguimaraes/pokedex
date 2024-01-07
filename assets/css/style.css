@@ -184,7 +184,7 @@ body {
 
 .flying {
   background: linear-gradient(to bottom, #39bae0, #bdb9b8);
-  color: #222;
+  color: white;
 }
 
 .ghost {
@@ -209,7 +209,7 @@ body {
 
 .normal {
   background: #a0a9ac;
-  color: #222;
+  color: white;
 }
 
 .poison {
