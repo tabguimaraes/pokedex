@@ -49,6 +49,7 @@ body {
   /* font-size: clamp(0.48rem, -0.125rem + 1.2vw, 1.8vw); */
   font-size: clamp(0.625rem, 0.5019rem + 0.5252vw, 1.375rem);
   font-weight: 600;
+  line-height: 0;
 }
 
 #pokemonSprite {
@@ -59,36 +60,36 @@ body {
   height: 43%;
 }
 
+#pokemonName > span > img {
+  height: clamp(0.6rem, -0.125rem + 1.1vw, 1.8vw);
+  /* height: clamp(0.625rem, 0.5019rem + 0.5252vw, 1.375rem); */
+}
 #pokemonName {
+  top: 7.3%;
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
 
-#pokemonName > span > img {
-  /* height: clamp(0.6rem, -0.125rem + 1.1vw, 1.8vw); */
-  height: clamp(0.625rem, 0.5019rem + 0.5252vw, 1.375rem);
-}
-#pokemonName {
-  top: 6.8%;
+@media (max-width: 600px) {
+  #pokemonName {
+    top: 6.4%;
+  }
 }
 #pokemonType {
-  top: 10.7%;
+  top: 12.5%;
 }
 #pokemonHeight {
-  top: 14.8%;
+  top: 16.8%;
 }
 #pokemonWeight {
-  top: 18.8%;
+  top: 20.8%;
 }
-
 #pokemonSearch input {
   top: 25%;
   outline: none;
   border: none;
   max-width: 19%;
-  /* background-color: #444; */
 }
-
 #pokemonSearch {
   width: fit-content;
   height: fit-content;
@@ -232,5 +233,5 @@ body {
 
 .water {
   background: #448fc0;
-  color: #222;
+  color: white;
 }
