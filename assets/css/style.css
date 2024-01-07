@@ -28,6 +28,12 @@ body {
   position: relative;
 }
 
+@media (max-height: 1000px) {
+  #container {
+    max-width: 850px;
+  }
+}
+
 #tvBasel {
   /* max-height: 95vh; */
   width: 100vw;
@@ -66,7 +72,7 @@ body {
   top: 6.8%;
 }
 #pokemonType {
-  top: 10.8%;
+  top: 10.7%;
 }
 #pokemonHeight {
   top: 14.8%;
@@ -131,4 +137,29 @@ body {
 
 #btnBefore:active {
   box-shadow: inset -3px 3px 0 #222;
+}
+
+.types {
+  border-radius: 15%;
+  padding: 1.5%;
+}
+
+.grass {
+  background-color: green;
+  color: white;
+}
+
+.poison {
+  background-color: rgb(124, 0, 128);
+  color: white;
+}
+
+.fire {
+  background-color: rgb(207, 78, 2);
+  color: white;
+}
+
+.water {
+  background-color: #8fc3d0;
+  color: #222;
 }

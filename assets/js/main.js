@@ -8,6 +8,8 @@ function initPokemon() {
   const pokemonInput = document.querySelector("#pokemonInput");
   const btnBefore = document.querySelector("#btnBefore");
   const btnNext = document.querySelector("#btnNext");
+  const type1 = document.querySelector("#type1");
+  const type2 = document.querySelector("#type2");
   let pokemonID;
 
   function searchPokemon(pokemon) {
@@ -36,10 +38,9 @@ function initPokemon() {
   function insertData(pokemon) {
     pokemonID = pokemon["id"];
     pokemonName.innerHTML = `<span><img src="./assets/img/favicon-16x16.png" alt="" /></span>&nbsp;${pokemon["id"]} - ${pokemon["name"]}`;
-
     switch (pokemon["types"]["0"]["type"]["name"]) {
       case "grass":
-        pokemonType.innerText = "Grama";
+        pokemonType.innerHTML = `<span class='types grass'>Grama</span>`;
         break;
       case "normal":
         pokemonType.innerText = "Normal";
@@ -48,13 +49,13 @@ function initPokemon() {
         pokemonType.innerText = "Veneno";
         break;
       case "fire":
-        pokemonType.innerText = "Fogo";
+        pokemonType.innerHTML = `<span class='types fire'>Fogo</span>`;
         break;
       case "fly":
         pokemonType.innerText = "Voador";
         break;
       case "water":
-        pokemonType.innerText = "Água";
+        pokemonType.innerHTML = `<span class='types water'>Água</span>`;
         break;
       case "bug":
         pokemonType.innerText = "Inseto";
@@ -97,60 +98,66 @@ function initPokemon() {
         break;
     }
     switch (pokemon["types"]["1"]["type"]["name"]) {
-      case "grass":
-        pokemonType.innerText += " | Grama";
-        break;
-      case "normal":
-        pokemonType.innerText += " | Normal";
-        break;
       case "poison":
-        pokemonType.innerText += " | Veneno";
+        pokemonType.innerHTML += `&nbsp;<span class='types poison'>Veneno</span>`;
         break;
-      case "fire":
-        pokemonType.innerText += " | Fogo";
-        break;
-      case "flying":
-        pokemonType.innerText += " | Voador";
-        break;
-      case "water":
-        pokemonType.innerText += " | Água";
-        break;
-      case "bug":
-        pokemonType.innerText += " | Inseto";
-        break;
-      case "ground":
-        pokemonType.innerText += " | Terra";
-        break;
-      case "psychic":
-        pokemonType.innerText += " | Psíquico";
-        break;
-      case "ghost":
-        pokemonType.innerText += " | Fantasma";
-        break;
-      case "rock":
-        pokemonType.innerText += " | Pedra";
-        break;
-      case "electric":
-        pokemonType.innerText += " | Elétrico";
-        break;
-      case "fairy":
-        pokemonType.innerText += " | Fada";
-        break;
-      case "fighting":
-        pokemonType.innerText += " | Lutador";
-        break;
-      case "ice":
-        pokemonType.innerText += " | Gelo";
-        break;
-      case "steel":
-        pokemonType.innerText += " | Metal";
-        break;
-      case "dragon":
-        pokemonType.innerText += " | Dragão";
-        break;
-      case "dark":
-        pokemonType.innerText += " | Sombrio";
-        break;
+
+      //   case "grass":
+      //     // pokemonType.innerText += " | Grama";
+      //     pokemonType.innerHTML += `<span class='grass'>Grama</span>`;
+
+      //     break;
+      //   case "normal":
+      //     pokemonType.innerText += " | Normal";
+      //     break;
+      //   case "poison":
+      //     pokemonType.innerText += " | Veneno";
+      //     break;
+      //   case "fire":
+      //     pokemonType.innerText += " | Fogo";
+      //     break;
+      //   case "flying":
+      //     pokemonType.innerText += " | Voador";
+      //     break;
+      //   case "water":
+      //     pokemonType.innerText += " | Água";
+      //     break;
+      //   case "bug":
+      //     pokemonType.innerText += " | Inseto";
+      //     break;
+      //   case "ground":
+      //     pokemonType.innerText += " | Terra";
+      //     break;
+      //   case "psychic":
+      //     pokemonType.innerText += " | Psíquico";
+      //     break;
+      //   case "ghost":
+      //     pokemonType.innerText += " | Fantasma";
+      //     break;
+      //   case "rock":
+      //     pokemonType.innerText += " | Pedra";
+      //     break;
+      //   case "electric":
+      //     pokemonType.innerText += " | Elétrico";
+      //     break;
+      //   case "fairy":
+      //     pokemonType.innerText += " | Fada";
+      //     break;
+      //   case "fighting":
+      //     pokemonType.innerText += " | Lutador";
+      //     break;
+      //   case "ice":
+      //     pokemonType.innerText += " | Gelo";
+      //     break;
+      //   case "steel":
+      //     pokemonType.innerText += " | Metal";
+      //     break;
+      //   case "dragon":
+      //     pokemonType.innerText += " | Dragão";
+      //     break;
+      //   case "dark":
+      //     pokemonType.innerText += " | Sombrio";
+      //     break;
 
       default:
         break;
