@@ -60,174 +60,178 @@ function init() {
     pkID = pokemon["id"];
     pkHeigth = pokemon["height"];
     pkWeigth = pokemon["weight"];
-    pokemonName.innerHTML = `${pkSpanIcon}${pkID} - ${pkName}`;
-
-    pkTypes = pokemon["types"];
-    const typeID0 = pokemon["types"]["0"]["type"]["name"];
-
-    switch (typeID0) {
-      case "bug":
-        pkTypeName = "Inseto";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "dark":
-        pkTypeName = "Sombrio";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "dragon":
-        pkTypeName = "Dragão";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "electric":
-        pkTypeName = "Elétrico";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "fairy":
-        pkTypeName = "Fada";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "fighting":
-        pkTypeName = "Lutador";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "fire":
-        pkTypeName = "Fogo";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "flying":
-        pkTypeName = "Voador";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "ghost":
-        pkTypeName = "Fantasma";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "grass":
-        pkTypeName = "Grama";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "ground":
-        pkTypeName = "Terra";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "ice":
-        pkTypeName = "Gelo";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "normal":
-        pkTypeName = "Normal";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "poison":
-        pkTypeName = "Veneno";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "psychic":
-        pkTypeName = "Psíquico";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "rock":
-        pkTypeName = "Pedra";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "steel":
-        pkTypeName = "Metal";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-      case "water":
-        pkTypeName = "Água";
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
-        break;
-
-      default:
-        break;
-    }
-
-    if (pkTypes.length < 2) {
+    if (pkID == "778") {
+      pokemonName.innerHTML = `${pkSpanIcon}${pkID} - Mimikyu`;
     } else {
-      const typeID1 = pokemon["types"]["1"]["type"]["name"];
+      pokemonName.innerHTML = `${pkSpanIcon}${pkID} - ${pkName}`;
 
-      switch (typeID1) {
+      pkTypes = pokemon["types"];
+      const typeID0 = pokemon["types"]["0"]["type"]["name"];
+
+      switch (typeID0) {
         case "bug":
           pkTypeName = "Inseto";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "dark":
           pkTypeName = "Sombrio";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "dragon":
           pkTypeName = "Dragão";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "electric":
           pkTypeName = "Elétrico";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "fairy":
           pkTypeName = "Fada";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "fighting":
           pkTypeName = "Lutador";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "fire":
           pkTypeName = "Fogo";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "flying":
           pkTypeName = "Voador";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "ghost":
           pkTypeName = "Fantasma";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "grass":
           pkTypeName = "Grama";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "ground":
           pkTypeName = "Terra";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "ice":
           pkTypeName = "Gelo";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "normal":
           pkTypeName = "Normal";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "poison":
           pkTypeName = "Veneno";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "psychic":
           pkTypeName = "Psíquico";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "rock":
           pkTypeName = "Pedra";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "steel":
           pkTypeName = "Metal";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
         case "water":
           pkTypeName = "Água";
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
           break;
 
         default:
           break;
       }
+
+      if (pkTypes.length < 2) {
+      } else {
+        const typeID1 = pokemon["types"]["1"]["type"]["name"];
+
+        switch (typeID1) {
+          case "bug":
+            pkTypeName = "Inseto";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "dark":
+            pkTypeName = "Sombrio";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "dragon":
+            pkTypeName = "Dragão";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "electric":
+            pkTypeName = "Elétrico";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "fairy":
+            pkTypeName = "Fada";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "fighting":
+            pkTypeName = "Lutador";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "fire":
+            pkTypeName = "Fogo";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "flying":
+            pkTypeName = "Voador";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "ghost":
+            pkTypeName = "Fantasma";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "grass":
+            pkTypeName = "Grama";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "ground":
+            pkTypeName = "Terra";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "ice":
+            pkTypeName = "Gelo";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "normal":
+            pkTypeName = "Normal";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "poison":
+            pkTypeName = "Veneno";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "psychic":
+            pkTypeName = "Psíquico";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "rock":
+            pkTypeName = "Pedra";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "steel":
+            pkTypeName = "Metal";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+          case "water":
+            pkTypeName = "Água";
+            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            break;
+
+          default:
+            break;
+        }
+      }
+      pokemonHeight.innerText = `${pkHeigth * 10}cm`;
+      pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
+      return;
     }
-    pokemonHeight.innerText = `${pkHeigth * 10}cm`;
-    pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
-    return;
   }
 
   function formSearch() {
