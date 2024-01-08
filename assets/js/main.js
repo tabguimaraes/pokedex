@@ -11,7 +11,7 @@ function init() {
   const randomField = document.querySelector("#randomField");
   const randomMsg = document.querySelector("#randomMsg");
   const pkMin = 0;
-  const pkMax = 1024;
+  const pkMax = 1025;
   const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
 
   let pkName;
