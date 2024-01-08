@@ -16,7 +16,7 @@ function init() {
 
   let pkName;
   let pkSprite;
-  let pkID;
+  let pkID = 1;
   let pkTypes;
   let pkTypeName;
   let pkHeigth;
@@ -29,8 +29,16 @@ function init() {
         pokemonInput.value = "";
       } else {
         await pokemon.json().then((pokemon) => {
+          pkID = pokemon["id"];
+          pkName = pokemon["name"];
+          pkTypes = pokemon["types"];
+          pkHeigth = pokemon["height"];
+          pkWeigth = pokemon["weight"];
+          pkSprite = pokemon["sprites"]["other"]["official-artwork"]["front_default"];
+
           pokemonInput.setAttribute("placeholder", "Nome ou número");
           pokemonInput.value = "";
+
           insertSprite(pokemon);
           insertData(pokemon);
           return;
@@ -39,12 +47,9 @@ function init() {
     });
     return;
   }
-  searchPokemon("1");
+  searchPokemon(pkID);
 
   function insertSprite(pokemon) {
-    pkSprite = pokemon["sprites"]["other"]["official-artwork"]["front_default"];
-    pkName = pokemon["name"];
-
     if (pkSprite === null) {
       pokemonSprite.src = "./assets/img/pkball.png";
       pokemonSprite.setAttribute("alt", pkName);
@@ -57,15 +62,11 @@ function init() {
   }
 
   function insertData(pokemon) {
-    pkID = pokemon["id"];
-    pkHeigth = pokemon["height"];
-    pkWeigth = pokemon["weight"];
     if (pkID == "778") {
       pokemonName.innerHTML = `${pkSpanIcon}${pkID} - Mimikyu`;
     } else {
       pokemonName.innerHTML = `${pkSpanIcon}${pkID} - ${pkName}`;
 
-      pkTypes = pokemon["types"];
       const typeID0 = pokemon["types"]["0"]["type"]["name"];
 
       switch (typeID0) {
@@ -254,7 +255,21 @@ function init() {
           pokemonInput.setAttribute("placeholder", "Nome Ou Número");
         }, 3000);
       } else {
-        searchPokemon(pokemonInput.value);
+        if (+pokemonInput.value > pkMax) {
+          pokemonName.innerText = "";
+          pokemonType.innerText = "";
+          pokemonHeight.innerText = "";
+          pokemonWeight.innerText = "";
+          pokemonInput.value = "";
+          pokemonInput.setAttribute("placeholder", "Não encontrado");
+
+          setTimeout(() => {
+            pokemonInput.setAttribute("placeholder", "Nome Ou Número");
+          }, 3000);
+        } else {
+          pkID = +pokemonInput.value;
+          searchPokemon(pokemonInput.value);
+        }
       }
     });
     return;
@@ -263,16 +278,22 @@ function init() {
 
   function btnSearch() {
     btnBefore.addEventListener("click", () => {
-      if (pkID <= 1) {
+      if (pkID <= 1 || pkID > pkMax) {
       } else {
         pkID = pkID - 1;
         searchPokemon(pkID);
       }
     });
+
     btnNext.addEventListener("click", () => {
       pkID = pkID + 1;
-      searchPokemon(pkID);
+      if (pkID > pkMax) {
+      } else {
+        console.log(pkID);
+        searchPokemon(pkID);
+      }
     });
+
     return;
   }
 
