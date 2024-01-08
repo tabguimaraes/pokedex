@@ -93,15 +93,10 @@ body {
   border-radius: 15%;
   cursor: pointer;
 }
-
-#btnRandom {
-  position: relative;
-  height: 100%;
-}
 #randomMsg {
   position: absolute;
   top: -10%;
-  right: -67%;
+  right: -70%;
   width: fit-content;
   font-size: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
   font-weight: 600;
