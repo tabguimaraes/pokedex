@@ -222,8 +222,8 @@ function init() {
   function formSearch() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
-
-      if (pokemonInput.value == 0 || pokemonInput.value === "?") {
+      let pkMissingNo = +pokemonInput.value;
+      if (pkMissingNo === 0 || pokemonInput.value === "?") {
         pokemonSprite.src = "./assets/img/missingno_.png";
         pkID = 0;
         pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
@@ -232,9 +232,7 @@ function init() {
         pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
         pokemonInput.value = "";
         pokemonInput.setAttribute("placeholder", "Nome Ou Número");
-      }
-
-      if (pokemonInput.value < 0) {
+      } else if (pkMissingNo < 0) {
         pokemonInput.setAttribute("placeholder", "Não encontrado");
         pokemonInput.value = "";
         setTimeout(() => {
