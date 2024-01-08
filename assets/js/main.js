@@ -280,16 +280,16 @@ function init() {
     btnBefore.addEventListener("click", () => {
       if (pkID <= 1 || pkID > pkMax) {
       } else {
-        pkID = pkID - 1;
+        pkID--;
         searchPokemon(pkID);
       }
     });
 
     btnNext.addEventListener("click", () => {
-      pkID = pkID + 1;
+      pkID++;
       if (pkID > pkMax) {
+        pkID--;
       } else {
-        console.log(pkID);
         searchPokemon(pkID);
       }
     });
