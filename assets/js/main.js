@@ -43,8 +43,15 @@ function init() {
   function insertSprite(pokemon) {
     pkSprite = pokemon["sprites"]["other"]["official-artwork"]["front_default"];
     pkName = pokemon["name"];
-    pokemonSprite.setAttribute("alt", pkName);
-    pokemonSprite.setAttribute("src", pkSprite);
+
+    if (pkSprite === null) {
+      pokemonSprite.src = "./assets/img/pkball.png";
+      pokemonSprite.setAttribute("alt", pkName);
+    } else {
+      pokemonSprite.setAttribute("alt", pkName);
+      pokemonSprite.setAttribute("src", pkSprite);
+    }
+
     return;
   }
 
@@ -227,7 +234,7 @@ function init() {
       event.preventDefault();
       let pkMissingNo = +pokemonInput.value;
       if (pkMissingNo === 0 || pokemonInput.value === "?") {
-        pokemonSprite.src = "./assets/img/missingno_.png";
+        pokemonSprite.src = "./assets/img/missingno.png";
         pkID = 0;
         pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
         pokemonType.innerText = "Tipo: ???";
