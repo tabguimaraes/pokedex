@@ -8,7 +8,8 @@ function init() {
   const pokemonInput = document.querySelector("#pokemonInput");
   const btnBefore = document.querySelector("#btnBefore");
   const btnNext = document.querySelector("#btnNext");
-  const btnRandom = document.querySelector("#btnRandom");
+  const randomField = document.querySelector("#randomField");
+  const randomMsg = document.querySelector("#randomMsg");
   const pkMin = 0;
   const pkMax = 1024;
   const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
@@ -274,7 +275,16 @@ function init() {
   btnSearch();
 
   function randomPokemon() {
-    btnRandom.addEventListener("click", () => {
+    randomField.addEventListener("mouseover", () => {
+      randomMsg.style.opacity = "1";
+      randomMsg.style.transition = ".5s";
+      setTimeout(() => {
+        randomMsg.style.opacity = "0";
+        randomMsg.style.transition = ".5s";
+      }, 1000);
+    });
+
+    randomField.addEventListener("click", () => {
       pkID = Math.floor(Math.random() * (pkMax - pkMin) + pkMin);
       searchPokemon(pkID);
       return;
