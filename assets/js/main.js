@@ -10,46 +10,40 @@ function init() {
   const btnNext = document.querySelector("#btnNext");
   const randomField = document.querySelector("#randomField");
   const randomMsg = document.querySelector("#randomMsg");
+  const tvBasel = document.querySelector("#tvBasel");
+  const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
   const pkMin = 0;
   const pkMax = 1025;
-  const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
 
-  let pkName;
-  let pkSprite;
   let pkID = 1;
+  let pkName;
   let pkTypes;
   let pkTypeName;
   let pkHeigth;
   let pkWeigth;
+  let pkSprite;
 
   function searchPokemon(pokemon) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()).then(async (pokemon) => {
-      if (pokemon.status != 200) {
-        pokemonInput.setAttribute("placeholder", "Não encontrado");
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()).then(async (response) => {
+      await response.json().then((data) => {
+        pkID = data["id"];
+        pkName = data["name"];
+        pkTypes = data["types"];
+        pkHeigth = data["height"];
+        pkWeigth = data["weight"];
+        pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
+
+        insertSprite();
+        insertData();
+
+        pokemonInput.setAttribute("placeholder", "Nome ou número");
         pokemonInput.value = "";
-      } else {
-        await pokemon.json().then((pokemon) => {
-          pkID = pokemon["id"];
-          pkName = pokemon["name"];
-          pkTypes = pokemon["types"];
-          pkHeigth = pokemon["height"];
-          pkWeigth = pokemon["weight"];
-          pkSprite = pokemon["sprites"]["other"]["official-artwork"]["front_default"];
-
-          pokemonInput.setAttribute("placeholder", "Nome ou número");
-          pokemonInput.value = "";
-
-          insertSprite(pokemon);
-          insertData(pokemon);
-          return;
-        });
-      }
+      });
     });
-    return;
   }
   searchPokemon(pkID);
 
-  function insertSprite(pokemon) {
+  function insertSprite() {
     if (pkSprite === null) {
       pokemonSprite.src = "./assets/img/pkball.png";
       pokemonSprite.setAttribute("alt", pkName);
@@ -57,17 +51,15 @@ function init() {
       pokemonSprite.setAttribute("alt", pkName);
       pokemonSprite.setAttribute("src", pkSprite);
     }
-
-    return;
   }
 
-  function insertData(pokemon) {
+  function insertData() {
     if (pkID == "778") {
       pokemonName.innerHTML = `${pkSpanIcon}${pkID} - Mimikyu`;
     } else {
       pokemonName.innerHTML = `${pkSpanIcon}${pkID} - ${pkName}`;
 
-      const typeID0 = pokemon["types"]["0"]["type"]["name"];
+      const typeID0 = pkTypes["0"]["type"]["name"];
 
       switch (typeID0) {
         case "bug":
@@ -149,7 +141,7 @@ function init() {
 
       if (pkTypes.length < 2) {
       } else {
-        const typeID1 = pokemon["types"]["1"]["type"]["name"];
+        const typeID1 = pkTypes["1"]["type"]["name"];
 
         switch (typeID1) {
           case "bug":
@@ -231,14 +223,15 @@ function init() {
       }
       pokemonHeight.innerText = `${pkHeigth * 10}cm`;
       pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
-      return;
     }
   }
 
   function formSearch() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
+
       let pkMissingNo = +pokemonInput.value;
+
       if (pkMissingNo === 0 || pokemonInput.value === "?") {
         pokemonSprite.src = "./assets/img/missingno.png";
         pkID = 0;
@@ -261,18 +254,21 @@ function init() {
           pokemonHeight.innerText = "";
           pokemonWeight.innerText = "";
           pokemonInput.value = "";
+          pokemonSprite.setAttribute("alt", "");
+          pokemonSprite.setAttribute("src", "");
           pokemonInput.setAttribute("placeholder", "Não encontrado");
+          tvBasel.setAttribute("src", "./assets/img/tv_no_signal.png");
 
           setTimeout(() => {
             pokemonInput.setAttribute("placeholder", "Nome Ou Número");
           }, 3000);
         } else {
+          tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
           pkID = +pokemonInput.value;
           searchPokemon(pokemonInput.value);
         }
       }
     });
-    return;
   }
   formSearch();
 
@@ -280,6 +276,7 @@ function init() {
     btnBefore.addEventListener("click", () => {
       if (pkID <= 1 || pkID > pkMax) {
       } else {
+        tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
         pkID--;
         searchPokemon(pkID);
       }
@@ -290,15 +287,14 @@ function init() {
       if (pkID > pkMax) {
         pkID--;
       } else {
+        tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
         searchPokemon(pkID);
       }
     });
-
-    return;
   }
 
   btnSearch();
-
+//verificar como desabilitar o random quando o tv no signal estiver ativado
   function randomPokemon() {
     randomField.addEventListener("mouseover", () => {
       randomMsg.style.opacity = "1";
@@ -312,7 +308,6 @@ function init() {
     randomField.addEventListener("click", () => {
       pkID = Math.floor(Math.random() * (pkMax - pkMin) + pkMin);
       searchPokemon(pkID);
-      return;
     });
   }
   randomPokemon();
