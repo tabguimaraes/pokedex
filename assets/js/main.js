@@ -230,9 +230,9 @@ function init() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      let pkMissingNo = +pokemonInput.value;
-
-      if (pkMissingNo === 0 || pokemonInput.value === "?") {
+      if (+pokemonInput.value === 0 || pokemonInput.value === "?") {
+        randomField.classList.remove("hidden");
+        tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
         pokemonSprite.src = "./assets/img/missingno.png";
         pkID = 0;
         pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
@@ -241,32 +241,25 @@ function init() {
         pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
         pokemonInput.value = "";
         pokemonInput.setAttribute("placeholder", "Nome Ou Número");
-      } else if (pkMissingNo < 0) {
+      } else if (+pokemonInput.value < pkMin || +pokemonInput.value > pkMax) {
         pokemonInput.setAttribute("placeholder", "Não encontrado");
         pokemonInput.value = "";
+        pokemonName.innerText = "";
+        pokemonType.innerText = "";
+        pokemonHeight.innerText = "";
+        pokemonWeight.innerText = "";
+        pokemonSprite.setAttribute("alt", "");
+        pokemonSprite.setAttribute("src", "");
+        tvBasel.setAttribute("src", "./assets/img/tv_no_signal.png");
+        randomField.classList.add("hidden");
         setTimeout(() => {
           pokemonInput.setAttribute("placeholder", "Nome Ou Número");
         }, 3000);
       } else {
-        if (+pokemonInput.value > pkMax) {
-          pokemonName.innerText = "";
-          pokemonType.innerText = "";
-          pokemonHeight.innerText = "";
-          pokemonWeight.innerText = "";
-          pokemonInput.value = "";
-          pokemonSprite.setAttribute("alt", "");
-          pokemonSprite.setAttribute("src", "");
-          pokemonInput.setAttribute("placeholder", "Não encontrado");
-          tvBasel.setAttribute("src", "./assets/img/tv_no_signal.png");
-
-          setTimeout(() => {
-            pokemonInput.setAttribute("placeholder", "Nome Ou Número");
-          }, 3000);
-        } else {
-          tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
-          pkID = +pokemonInput.value;
-          searchPokemon(pokemonInput.value);
-        }
+        randomField.classList.remove("hidden");
+        tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
+        pkID = +pokemonInput.value;
+        searchPokemon(pokemonInput.value);
       }
     });
   }
@@ -276,6 +269,7 @@ function init() {
     btnBefore.addEventListener("click", () => {
       if (pkID <= 1 || pkID > pkMax) {
       } else {
+        randomField.classList.remove("hidden");
         tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
         pkID--;
         searchPokemon(pkID);
@@ -287,6 +281,7 @@ function init() {
       if (pkID > pkMax) {
         pkID--;
       } else {
+        randomField.classList.remove("hidden");
         tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
         searchPokemon(pkID);
       }
@@ -294,7 +289,7 @@ function init() {
   }
 
   btnSearch();
-//verificar como desabilitar o random quando o tv no signal estiver ativado
+
   function randomPokemon() {
     randomField.addEventListener("mouseover", () => {
       randomMsg.style.opacity = "1";

@@ -93,6 +93,11 @@ body {
   border-radius: 15%;
   cursor: pointer;
 }
+
+.hidden {
+  display: none;
+}
+
 #randomMsg {
   position: absolute;
   top: -10%;
