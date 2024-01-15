@@ -24,6 +24,7 @@ function init() {
   let pkSprite;
 
   async function searchPokemon(pokemon) {
+    pokemonInput.value = "Buscando...";
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
       const data = await searchResponse.json();
@@ -34,8 +35,6 @@ function init() {
       pkHeigth = data["height"];
       pkWeigth = data["weight"];
       pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
-
-      pokemonInput.value = "Buscando...";
 
       setTimeout(() => {
         insertSprite();
