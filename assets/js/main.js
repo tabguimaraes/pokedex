@@ -23,25 +23,47 @@ function init() {
   let pkWeigth;
   let pkSprite;
 
-  function searchPokemon(pokemon) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()).then(async (response) => {
-      await response.json().then((data) => {
-        pkID = data["id"];
-        pkName = data["name"];
-        pkTypes = data["types"];
-        pkHeigth = data["height"];
-        pkWeigth = data["weight"];
-        pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
+  async function searchPokemon(pokemon) {
+    try {
+      const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
+      const data = await searchResponse.json();
 
+      pkID = data["id"];
+      pkName = data["name"];
+      pkTypes = data["types"];
+      pkHeigth = data["height"];
+      pkWeigth = data["weight"];
+      pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
+
+      pokemonInput.value = "Buscando";
+
+      setTimeout(() => {
         insertSprite();
         insertData();
-
         pokemonInput.setAttribute("placeholder", "Nome ou número");
         pokemonInput.value = "";
-      });
-    });
+      }, 500);
+    } catch {
+      notFound();
+    }
   }
   searchPokemon(pkID);
+
+  function notFound() {
+    pokemonInput.setAttribute("placeholder", "Não encontrado");
+    pokemonInput.value = "";
+    pokemonName.innerText = "";
+    pokemonType.innerText = "";
+    pokemonHeight.innerText = "";
+    pokemonWeight.innerText = "";
+    pokemonSprite.setAttribute("alt", "");
+    pokemonSprite.setAttribute("src", "");
+    tvBasel.setAttribute("src", "./assets/img/tv_no_signal.png");
+    randomField.classList.add("hidden");
+    setTimeout(() => {
+      pokemonInput.setAttribute("placeholder", "Nome Ou Número");
+    }, 3000);
+  }
 
   function insertSprite() {
     if (pkSprite === null) {
@@ -230,11 +252,11 @@ function init() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (+pokemonInput.value === 0 || pokemonInput.value === "?") {
+      if (+pokemonInput.value === pkMin || pokemonInput.value === "?") {
         randomField.classList.remove("hidden");
         tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
         pokemonSprite.src = "./assets/img/missingno.png";
-        pkID = 0;
+        pkID = pkMin;
         pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
         pokemonType.innerText = "Tipo: ???";
         pokemonHeight.innerText = `${10 * 10}cm`;
@@ -242,19 +264,7 @@ function init() {
         pokemonInput.value = "";
         pokemonInput.setAttribute("placeholder", "Nome Ou Número");
       } else if (+pokemonInput.value < pkMin || +pokemonInput.value > pkMax) {
-        pokemonInput.setAttribute("placeholder", "Não encontrado");
-        pokemonInput.value = "";
-        pokemonName.innerText = "";
-        pokemonType.innerText = "";
-        pokemonHeight.innerText = "";
-        pokemonWeight.innerText = "";
-        pokemonSprite.setAttribute("alt", "");
-        pokemonSprite.setAttribute("src", "");
-        tvBasel.setAttribute("src", "./assets/img/tv_no_signal.png");
-        randomField.classList.add("hidden");
-        setTimeout(() => {
-          pokemonInput.setAttribute("placeholder", "Nome Ou Número");
-        }, 3000);
+        notFound();
       } else {
         randomField.classList.remove("hidden");
         tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
@@ -291,13 +301,14 @@ function init() {
   btnSearch();
 
   function randomPokemon() {
-    randomField.addEventListener("mouseover", () => {
+    randomField.addEventListener("mouseenter", () => {
       randomMsg.style.opacity = "1";
       randomMsg.style.transition = ".5s";
-      setTimeout(() => {
-        randomMsg.style.opacity = "0";
-        randomMsg.style.transition = ".5s";
-      }, 1000);
+    });
+
+    randomField.addEventListener("mouseleave", () => {
+      randomMsg.style.opacity = "0";
+      randomMsg.style.transition = ".5s";
     });
 
     randomField.addEventListener("click", () => {
