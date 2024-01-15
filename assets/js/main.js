@@ -35,7 +35,7 @@ function init() {
       pkWeigth = data["weight"];
       pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
 
-      pokemonInput.value = "Buscando";
+      pokemonInput.value = "Buscando...";
 
       setTimeout(() => {
         insertSprite();
