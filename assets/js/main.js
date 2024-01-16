@@ -26,8 +26,6 @@ function init() {
   async function searchPokemon(pokemon) {
     pokemonInput.value = "Buscando...";
     try {
-      tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
-
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
       const data = await searchResponse.json();
 
@@ -38,17 +36,22 @@ function init() {
       pkWeigth = data["weight"];
       pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
 
-      setTimeout(() => {
-        insertSprite();
-        insertData();
-        setPlaceHolder("ready");
-        pokemonInput.value = "";
-      }, 500);
+      searchFound();
     } catch {
       notFound();
     }
   }
   searchPokemon(pkID);
+
+  function searchFound() {
+    setTimeout(() => {
+      insertSprite();
+      insertData();
+      setPlaceHolder("ready");
+      pokemonInput.value = "";
+      tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
+    }, 500);
+  }
 
   function notFound() {
     setPlaceHolder("notReady");
@@ -258,20 +261,25 @@ function init() {
     }
   }
 
+  function missingNo() {
+    tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
+    randomField.classList.remove("hidden");
+    pokemonSprite.src = "./assets/img/missingno.png";
+    pkID = pkMin;
+    pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
+    pokemonType.innerText = "Tipo: ???";
+    pokemonHeight.innerText = `${10 * 10}cm`;
+    pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
+    pokemonInput.value = "";
+    setPlaceHolder("ready");
+  }
+
   function formSearch() {
     pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
 
       if (+pokemonInput.value === pkMin || pokemonInput.value === "?") {
-        randomField.classList.remove("hidden");
-        pokemonSprite.src = "./assets/img/missingno.png";
-        pkID = pkMin;
-        pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
-        pokemonType.innerText = "Tipo: ???";
-        pokemonHeight.innerText = `${10 * 10}cm`;
-        pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
-        pokemonInput.value = "";
-        setPlaceHolder("ready");
+        missingNo()
       } else if (+pokemonInput.value < pkMin || +pokemonInput.value > pkMax) {
         notFound();
       } else {
