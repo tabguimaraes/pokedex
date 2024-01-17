@@ -10,7 +10,7 @@ function init() {
   const btnNext = document.querySelector("#btnNext");
   const randomField = document.querySelector("#randomField");
   const randomMsg = document.querySelector("#randomMsg");
-  const tvBasel = document.querySelector("#tvBasel");
+  const tvBezel = document.querySelector("#tvBezel");
   const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
   const pkMin = 0;
   const pkMax = 1025;
@@ -49,7 +49,7 @@ function init() {
       insertData();
       setPlaceHolder("ready");
       pokemonInput.value = "";
-      tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
+      tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
     }, 500);
   }
 
@@ -62,7 +62,7 @@ function init() {
     pokemonWeight.innerText = "";
     pokemonSprite.setAttribute("alt", "");
     pokemonSprite.setAttribute("src", "");
-    tvBasel.setAttribute("src", "./assets/img/tv_no_signal.png");
+    tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
     randomField.classList.add("hidden");
     setTimeout(() => {
       setPlaceHolder("ready");
@@ -262,7 +262,7 @@ function init() {
   }
 
   function missingNo() {
-    tvBasel.setAttribute("src", "./assets/img/tv_basel.png");
+    tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
     randomField.classList.remove("hidden");
     pokemonSprite.src = "./assets/img/missingno.png";
     pkID = pkMin;
