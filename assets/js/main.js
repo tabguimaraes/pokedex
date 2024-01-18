@@ -89,7 +89,7 @@ function init() {
   }
 
   function insertData() {
-    if (pkID == "778") {
+    if (pkID === 778) {
       pokemonName.innerHTML = `${pkSpanIcon}${pkID} - Mimikyu`;
     } else {
       pokemonName.innerHTML = `${pkSpanIcon}${pkID} - ${pkName}`;
@@ -279,7 +279,7 @@ function init() {
       event.preventDefault();
 
       if (+pokemonInput.value === pkMin || pokemonInput.value === "?") {
-        missingNo()
+        missingNo();
       } else if (+pokemonInput.value < pkMin || +pokemonInput.value > pkMax) {
         notFound();
       } else {
