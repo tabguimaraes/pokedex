@@ -50,6 +50,7 @@ function init() {
       setPlaceHolder("ready");
       pokemonInput.value = "";
       tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+      tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
     }, 500);
   }
 
@@ -63,6 +64,7 @@ function init() {
     pokemonSprite.setAttribute("alt", "");
     pokemonSprite.setAttribute("src", "");
     tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
+    tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
     randomField.classList.add("hidden");
     setTimeout(() => {
       setPlaceHolder("ready");
@@ -80,7 +82,7 @@ function init() {
 
   function insertSprite() {
     if (pkSprite === null) {
-      pokemonSprite.src = "./assets/img/pkball.png";
+      pokemonSprite.setAttribute("src", "./assets/img/pkball.png");
       pokemonSprite.setAttribute("alt", pkName);
     } else {
       pokemonSprite.setAttribute("alt", pkName);
