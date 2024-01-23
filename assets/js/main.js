@@ -14,6 +14,7 @@ function init() {
   const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
   const pkMin = 0;
   const pkMax = 1025;
+  const container = document.querySelector("#container");
 
   let pkID = 1;
   let pkName;
@@ -22,6 +23,30 @@ function init() {
   let pkHeigth;
   let pkWeigth;
   let pkSprite;
+
+  async function checkContainer() {
+    try {
+      const fetchTVBezel = await fetch(tvBezel.src);
+      console.log(fetchTVBezel.ok);
+      if (fetchTVBezel.ok === true) {
+        pokemonName.classList.remove("hidden");
+        pokemonType.classList.remove("hidden");
+        pokemonHeight.classList.remove("hidden");
+        pokemonWeight.classList.remove("hidden");
+        btnBefore.classList.remove("hidden");
+        btnNext.classList.remove("hidden");
+        pokemonSearch.classList.remove("hidden");
+        randomField.classList.remove("hidden");
+        pokemonInput.classList.remove("hidden");
+        pokemonSprite.classList.remove("hidden");
+        // searchPokemon(pkID);
+      }
+    } catch {
+      container.classList.add("hidden");
+      // console.log("não encontrado");
+    }
+  }
+  checkContainer();
 
   async function searchPokemon(pokemon) {
     pokemonInput.value = "Buscando...";
@@ -41,8 +66,6 @@ function init() {
       notFound();
     }
   }
-  searchPokemon(pkID);
-
   function searchFound() {
     setTimeout(() => {
       insertSprite();
@@ -332,5 +355,6 @@ function init() {
     });
   }
   randomPokemon();
+  // searchPokemon(pkID);
 }
 init();
