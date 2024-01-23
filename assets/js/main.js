@@ -1,20 +1,20 @@
 function init() {
+  const container = document.querySelector("#container");
+  const tvBezel = document.querySelector("#tvBezel");
+  const pokemonSprite = document.querySelector("#pokemonSprite");
   const pokemonName = document.querySelector("#pokemonName");
   const pokemonType = document.querySelector("#pokemonType");
   const pokemonHeight = document.querySelector("#pokemonHeight");
   const pokemonWeight = document.querySelector("#pokemonWeight");
-  const pokemonSprite = document.querySelector("#pokemonSprite");
   const pokemonSearch = document.querySelector("#pokemonSearch");
   const pokemonInput = document.querySelector("#pokemonInput");
   const btnBefore = document.querySelector("#btnBefore");
   const btnNext = document.querySelector("#btnNext");
   const randomField = document.querySelector("#randomField");
   const randomMsg = document.querySelector("#randomMsg");
-  const tvBezel = document.querySelector("#tvBezel");
   const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
   const pkMin = 0;
   const pkMax = 1025;
-  const container = document.querySelector("#container");
 
   let pkID = 1;
   let pkName;
@@ -24,29 +24,19 @@ function init() {
   let pkWeigth;
   let pkSprite;
 
-  async function checkContainer() {
-    try {
-      const fetchTVBezel = await fetch(tvBezel.src);
-      console.log(fetchTVBezel.ok);
-      if (fetchTVBezel.ok === true) {
-        pokemonName.classList.remove("hidden");
-        pokemonType.classList.remove("hidden");
-        pokemonHeight.classList.remove("hidden");
-        pokemonWeight.classList.remove("hidden");
-        btnBefore.classList.remove("hidden");
-        btnNext.classList.remove("hidden");
-        pokemonSearch.classList.remove("hidden");
-        randomField.classList.remove("hidden");
-        pokemonInput.classList.remove("hidden");
-        pokemonSprite.classList.remove("hidden");
-        // searchPokemon(pkID);
-      }
-    } catch {
+  function checkTVBezel(response) {
+    if (response) {
+      searchPokemon(pkID);
+    } else {
       container.classList.add("hidden");
-      // console.log("não encontrado");
     }
   }
-  checkContainer();
+
+  async function showContainer() {
+    const fetchTVBezel = await fetch(tvBezel.src);
+    checkTVBezel(fetchTVBezel.ok);
+  }
+  showContainer();
 
   async function searchPokemon(pokemon) {
     pokemonInput.value = "Buscando...";
@@ -355,6 +345,5 @@ function init() {
     });
   }
   randomPokemon();
-  // searchPokemon(pkID);
 }
 init();
