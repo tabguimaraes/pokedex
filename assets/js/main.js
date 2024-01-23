@@ -24,7 +24,7 @@ function init() {
   let pkWeigth;
   let pkSprite;
 
-  function checkTVBezel(response) {
+  function showContainer(response) {
     if (response) {
       searchPokemon(pkID);
     } else {
@@ -32,11 +32,11 @@ function init() {
     }
   }
 
-  async function showContainer() {
+  async function checkTVBezel() {
     const fetchTVBezel = await fetch(tvBezel.src);
-    checkTVBezel(fetchTVBezel.ok);
+    showContainer(fetchTVBezel.ok);
   }
-  showContainer();
+  checkTVBezel();
 
   async function searchPokemon(pokemon) {
     pokemonInput.value = "Buscando...";
