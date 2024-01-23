@@ -25,11 +25,7 @@ function init() {
   let pkSprite;
 
   function showContainer(response) {
-    if (response) {
-      searchPokemon(pkID);
-    } else {
-      container.classList.add("hidden");
-    }
+    response ? searchPokemon(pkID) : container.classList.add("hidden");
   }
 
   async function checkTVBezel() {
