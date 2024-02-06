@@ -1,51 +1,46 @@
 function init() {
-  const container = document.querySelector("#container");
-  const tvBezel = document.querySelector("#tvBezel");
-  const pokemonSprite = document.querySelector("#pokemonSprite");
-  const pokemonName = document.querySelector("#pokemonName");
-  const pokemonType = document.querySelector("#pokemonType");
-  const pokemonHeight = document.querySelector("#pokemonHeight");
-  const pokemonWeight = document.querySelector("#pokemonWeight");
-  const pokemonSearch = document.querySelector("#pokemonSearch");
-  const pokemonInput = document.querySelector("#pokemonInput");
-  const btnBefore = document.querySelector("#btnBefore");
-  const btnNext = document.querySelector("#btnNext");
-  const randomField = document.querySelector("#randomField");
-  const randomMsg = document.querySelector("#randomMsg");
-  const pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`;
-  const pkMin = 0;
-  const pkMax = 1025;
-
-  let pkID = 1;
-  let pkName;
-  let pkTypes;
-  let pkTypeName;
-  let pkHeigth;
-  let pkWeigth;
-  let pkSprite;
+  const elemento = {
+    container: document.querySelector("#container"),
+    moldura: document.querySelector("#tvBezel"),
+    molduraOff: document.querySelector("#tvOffBezel"),
+    foto: document.querySelector("#pokemonSprite"),
+    nome: document.querySelector("#pokemonName"),
+    tipo: document.querySelector("#pokemonType"),
+    altura: document.querySelector("#pokemonHeight"),
+    peso: document.querySelector("#pokemonWeight"),
+    search: document.querySelector("#pokemonSearch"),
+    input: document.querySelector("#pokemonInput"),
+    anterior: document.querySelector("#btnBefore"),
+    proximo: document.querySelector("#btnNext"),
+    randomField: document.querySelector("#randomField"),
+    randomMsg: document.querySelector("#randomMsg"),
+    icon: `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`,
+    min: 0,
+    max: 1025,
+  };
 
   function showContainer(response) {
-    response ? searchPokemon(pkID) : container.classList.add("hidden");
+    response ? searchPokemon(1) : elemento.container.classList.add("hidden");
   }
 
   async function checkTVBezel() {
-    const fetchTVBezel = await fetch(tvBezel.src);
+    const fetchTVBezel = await fetch(elemento.moldura.src);
     showContainer(fetchTVBezel.ok);
   }
   checkTVBezel();
 
   async function searchPokemon(pokemon) {
-    pokemonInput.value = "Buscando...";
+    elemento.input.value = "Buscando...";
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
       const data = await searchResponse.json();
 
-      pkID = data["id"];
-      pkName = data["name"];
-      pkTypes = data["types"];
-      pkHeigth = data["height"];
-      pkWeigth = data["weight"];
-      pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
+      id = data["id"];
+      nome = data["name"];
+      tipos = data["types"];
+      altura = data["height"];
+      peso = data["weight"];
+      sprite = data["sprites"]["other"]["official-artwork"]["front_default"];
 
       searchFound();
     } catch {
@@ -57,24 +52,25 @@ function init() {
       insertSprite();
       insertData();
       setPlaceHolder("ready");
-      pokemonInput.value = "";
-      tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
-      tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
+      elemento.input.value = "";
+      elemento.molduraOff.classList.add("hidden");
+      elemento.moldura.classList.remove("hidden");
+      elemento.moldura.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${nome}`);
     }, 500);
   }
 
   function notFound() {
     setPlaceHolder("notReady");
-    pokemonInput.value = "";
-    pokemonName.innerText = "";
-    pokemonType.innerText = "";
-    pokemonHeight.innerText = "";
-    pokemonWeight.innerText = "";
-    pokemonSprite.setAttribute("alt", "");
-    pokemonSprite.setAttribute("src", "");
-    tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
-    tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
-    randomField.classList.add("hidden");
+    elemento.input.value = "";
+    elemento.nome.innerText = "";
+    elemento.tipo.innerText = "";
+    elemento.altura.innerText = "";
+    elemento.peso.innerText = "";
+    elemento.foto.setAttribute("alt", "");
+    elemento.foto.setAttribute("src", "");
+    elemento.moldura.classList.add("hidden");
+    elemento.molduraOff.classList.remove("hidden");
+    elemento.randomField.classList.add("hidden");
     setTimeout(() => {
       setPlaceHolder("ready");
     }, 3000);
@@ -82,242 +78,242 @@ function init() {
 
   function setPlaceHolder(type) {
     if (type === "ready") {
-      pokemonInput.setAttribute("placeholder", "Nome Ou Número");
+      elemento.input.setAttribute("placeholder", "Nome Ou Número");
     }
     if (type === "notReady") {
-      pokemonInput.setAttribute("placeholder", "Não encontrado");
+      elemento.input.setAttribute("placeholder", "Não encontrado");
     }
   }
 
   function insertSprite() {
-    if (pkSprite === null) {
-      pokemonSprite.setAttribute("src", "./assets/img/pkball.png");
-      pokemonSprite.setAttribute("alt", pkName);
+    if (!sprite) {
+      elemento.foto.setAttribute("src", "./assets/img/pkball.png");
+      elemento.foto.setAttribute("alt", nome);
     } else {
-      pokemonSprite.setAttribute("alt", pkName);
-      pokemonSprite.setAttribute("src", pkSprite);
+      elemento.foto.setAttribute("alt", nome);
+      elemento.foto.setAttribute("src", sprite);
     }
   }
 
   function insertData() {
-    if (pkID === 778) {
-      pokemonName.innerHTML = `${pkSpanIcon}${pkID} - Mimikyu`;
+    if (id === 778) {
+      elemento.nome.innerHTML = `${elemento.icon}${id} - Mimikyu`;
     } else {
-      pokemonName.innerHTML = `${pkSpanIcon}${pkID} - ${pkName}`;
+      elemento.nome.innerHTML = `${elemento.icon}${id} - ${nome}`;
 
-      const typeID0 = pkTypes["0"]["type"]["name"];
+      const typeID0 = tipos["0"]["type"]["name"];
 
       switch (typeID0) {
         case "bug":
-          pkTypeName = "Inseto";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Inseto";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "dark":
-          pkTypeName = "Sombrio";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Sombrio";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "dragon":
-          pkTypeName = "Dragão";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Dragão";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "electric":
-          pkTypeName = "Elétrico";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Elétrico";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "fairy":
-          pkTypeName = "Fada";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Fada";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "fighting":
-          pkTypeName = "Lutador";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Lutador";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "fire":
-          pkTypeName = "Fogo";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Fogo";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "flying":
-          pkTypeName = "Voador";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Voador";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "ghost":
-          pkTypeName = "Fantasma";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Fantasma";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "grass":
-          pkTypeName = "Grama";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Grama";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "ground":
-          pkTypeName = "Terra";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Terra";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "ice":
-          pkTypeName = "Gelo";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Gelo";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "normal":
-          pkTypeName = "Normal";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Normal";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "poison":
-          pkTypeName = "Veneno";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Veneno";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "psychic":
-          pkTypeName = "Psíquico";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Psíquico";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "rock":
-          pkTypeName = "Pedra";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Pedra";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "steel":
-          pkTypeName = "Metal";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Metal";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
         case "water":
-          pkTypeName = "Água";
-          pokemonType.innerHTML = `<span class='types ${typeID0}'>${pkTypeName}</span>`;
+          tipoPokemon = "Água";
+          elemento.tipo.innerHTML = `<span class='types ${typeID0}'>${tipoPokemon}</span>`;
           break;
 
         default:
           break;
       }
 
-      if (pkTypes.length < 2) {
+      if (tipos.length < 2) {
       } else {
-        const typeID1 = pkTypes["1"]["type"]["name"];
+        const typeID1 = tipos["1"]["type"]["name"];
 
         switch (typeID1) {
           case "bug":
-            pkTypeName = "Inseto";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Inseto";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "dark":
-            pkTypeName = "Sombrio";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Sombrio";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "dragon":
-            pkTypeName = "Dragão";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Dragão";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "electric":
-            pkTypeName = "Elétrico";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Elétrico";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "fairy":
-            pkTypeName = "Fada";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Fada";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "fighting":
-            pkTypeName = "Lutador";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Lutador";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "fire":
-            pkTypeName = "Fogo";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Fogo";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "flying":
-            pkTypeName = "Voador";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Voador";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "ghost":
-            pkTypeName = "Fantasma";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Fantasma";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "grass":
-            pkTypeName = "Grama";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Grama";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "ground":
-            pkTypeName = "Terra";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Terra";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "ice":
-            pkTypeName = "Gelo";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Gelo";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "normal":
-            pkTypeName = "Normal";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Normal";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "poison":
-            pkTypeName = "Veneno";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Veneno";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "psychic":
-            pkTypeName = "Psíquico";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Psíquico";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "rock":
-            pkTypeName = "Pedra";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Pedra";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "steel":
-            pkTypeName = "Metal";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Metal";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
           case "water":
-            pkTypeName = "Água";
-            pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${pkTypeName}</span>`;
+            tipoPokemon = "Água";
+            elemento.tipo.innerHTML += `&nbsp;<span class='types ${typeID1}'>${tipoPokemon}</span>`;
             break;
 
           default:
             break;
         }
       }
-      pokemonHeight.innerText = `${pkHeigth * 10}cm`;
-      pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
+      elemento.altura.innerText = `${altura * 10}cm`;
+      elemento.peso.innerText = `${peso / 10}Kg`;
     }
   }
 
   function missingNo() {
-    tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
-    randomField.classList.remove("hidden");
-    pokemonSprite.src = "./assets/img/missingno.png";
-    pkID = pkMin;
-    pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
-    pokemonType.innerText = "Tipo: ???";
-    pokemonHeight.innerText = `${10 * 10}cm`;
-    pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
-    pokemonInput.value = "";
+    elemento.moldura.setAttribute("src", "./assets/img/tv_bezel.png");
+    elemento.randomField.classList.remove("hidden");
+    elemento.foto.src = "./assets/img/missingno.png";
+    id = elemento.min;
+    elemento.nome.innerHTML = `${elemento.icon}${id} - MissingNo.`;
+    elemento.tipo.innerText = "Tipo: ???";
+    elemento.altura.innerText = `${10 * 10}cm`;
+    elemento.peso.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
+    elemento.input.value = "";
     setPlaceHolder("ready");
   }
 
   function formSearch() {
-    pokemonSearch.addEventListener("submit", (event) => {
+    elemento.search.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (+pokemonInput.value === pkMin || pokemonInput.value === "?") {
+      if (+elemento.input.value === elemento.min || elemento.input.value === "?") {
         missingNo();
-      } else if (+pokemonInput.value < pkMin || +pokemonInput.value > pkMax) {
+      } else if (+elemento.input.value < elemento.min || +elemento.input.value > elemento.max) {
         notFound();
       } else {
-        randomField.classList.remove("hidden");
-        searchPokemon(pokemonInput.value);
+        elemento.randomField.classList.remove("hidden");
+        searchPokemon(elemento.input.value);
       }
     });
   }
   formSearch();
 
   function btnSearch() {
-    btnBefore.addEventListener("click", () => {
-      if (pkID <= 1 || pkID > pkMax) {
+    elemento.anterior.addEventListener("click", () => {
+      if (id <= 1 || id > elemento.max) {
       } else {
-        randomField.classList.remove("hidden");
-        pkID--;
-        searchPokemon(pkID);
+        elemento.randomField.classList.remove("hidden");
+        id--;
+        searchPokemon(id);
       }
     });
 
-    btnNext.addEventListener("click", () => {
-      pkID++;
-      if (pkID > pkMax) {
-        pkID--;
+    elemento.proximo.addEventListener("click", () => {
+      id++;
+      if (id > elemento.max) {
+        id--;
       } else {
-        randomField.classList.remove("hidden");
-        searchPokemon(pkID);
+        elemento.randomField.classList.remove("hidden");
+        searchPokemon(id);
       }
     });
   }
@@ -325,19 +321,19 @@ function init() {
   btnSearch();
 
   function randomPokemon() {
-    randomField.addEventListener("mouseenter", () => {
-      randomMsg.style.opacity = "1";
-      randomMsg.style.transition = ".5s";
+    elemento.randomField.addEventListener("mouseenter", () => {
+      elemento.randomMsg.style.opacity = "1";
+      elemento.randomMsg.style.transition = ".5s";
     });
 
-    randomField.addEventListener("mouseleave", () => {
-      randomMsg.style.opacity = "0";
-      randomMsg.style.transition = ".5s";
+    elemento.randomField.addEventListener("mouseleave", () => {
+      elemento.randomMsg.style.opacity = "0";
+      elemento.randomMsg.style.transition = ".5s";
     });
 
-    randomField.addEventListener("click", () => {
-      pkID = Math.floor(Math.random() * (pkMax - pkMin) + pkMin);
-      searchPokemon(pkID);
+    elemento.randomField.addEventListener("click", () => {
+      id = Math.floor(Math.random() * (elemento.max - elemento.min) + elemento.min);
+      searchPokemon(id);
     });
   }
   randomPokemon();
