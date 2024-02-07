@@ -1,4 +1,6 @@
 function init() {
+  let id, nome, tipos, altura, peso, sprite;
+
   const elemento = {
     container: document.querySelector("#container"),
     moldura: document.querySelector("#tvBezel"),
