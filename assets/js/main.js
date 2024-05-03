@@ -40,12 +40,25 @@ function init() {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
       const data = await searchResponse.json();
 
-      pkID = data["id"];
-      pkName = data["name"];
-      pkTypes = data["types"];
-      pkHeigth = data["height"];
-      pkWeigth = data["weight"];
-      pkSprite = data["sprites"]["other"]["official-artwork"]["front_default"];
+      const {
+        id,
+        name,
+        types,
+        height,
+        weight,
+        sprites: {
+          other: {
+            "official-artwork": { front_default },
+          },
+        },
+      } = data;
+
+      pkID = id;
+      pkName = name;
+      pkTypes = types;
+      pkHeigth = height;
+      pkWeigth = weight;
+      pkSprite = front_default;
 
       searchFound();
     } catch {
