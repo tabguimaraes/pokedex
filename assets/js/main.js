@@ -37,20 +37,19 @@ function init() {
     pokemonInput.value = "Buscando...";
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
-        data = await searchResponse.json();
-
-      const {
-        id,
-        name,
-        types,
-        height,
-        weight,
-        sprites: {
-          other: {
-            "official-artwork": { front_default },
+        data = await searchResponse.json(),
+        {
+          id,
+          name,
+          types,
+          height,
+          weight,
+          sprites: {
+            other: {
+              "official-artwork": { front_default },
+            },
           },
-        },
-      } = data;
+        } = data;
 
       pkID = id;
       pkName = name;
