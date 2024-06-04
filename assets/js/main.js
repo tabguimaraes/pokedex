@@ -183,8 +183,7 @@ function init() {
           break;
       }
 
-      if (pkTypes.length < 2) {
-      } else {
+      if (pkTypes.length > 1) {
         const typeID1 = pkTypes["1"]["type"]["name"];
 
         function insertType2(typeName) {
