@@ -29,7 +29,7 @@ function init() {
   checkTVBezel();
 
   async function searchPokemon(pokemon) {
-    body.pokemonInput.value = "Buscando...";
+    body.pokemonInput.value = "Sintonizando...";
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
         data = ({
@@ -55,10 +55,12 @@ function init() {
       insertSprite();
       insertData();
       setPlaceHolder("ready");
-      body.pokemonInput.value = "";
       body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
       body.tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
     }, 500);
+    setTimeout(() => {
+      body.pokemonInput.value = "";
+    }, 900);
   }
 
   function notFound() {
@@ -83,7 +85,7 @@ function init() {
       body.pokemonInput.setAttribute("placeholder", "Nome Ou Número");
     }
     if (type === "notReady") {
-      body.pokemonInput.setAttribute("placeholder", "Não encontrado");
+      body.pokemonInput.setAttribute("placeholder", "Fora do Ar");
     }
   }
 
@@ -250,8 +252,11 @@ function init() {
     body.pokemonType.innerText = "Tipo: ???";
     body.pokemonHeight.innerText = `${10 * 10}cm`;
     body.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
-    body.pokemonInput.value = "";
+    body.pokemonInput.value = "!@#ERR0R";
     setPlaceHolder("ready");
+    setTimeout(() => {
+      body.pokemonInput.value = "";
+    }, 3000);
   }
 
   function formSearch() {
@@ -274,8 +279,10 @@ function init() {
     body.btnBefore.addEventListener("click", () => {
       if (pkID >= 2) {
         body.randomField.classList.remove("hidden");
-        pkID--;
-        searchPokemon(pkID);
+        setTimeout(() => {
+          pkID--;
+          searchPokemon(pkID);
+        }, 500);
       }
     });
 
@@ -285,7 +292,9 @@ function init() {
         pkID--;
       } else {
         body.randomField.classList.remove("hidden");
-        searchPokemon(pkID);
+        setTimeout(() => {
+          searchPokemon(pkID);
+        }, 500);
       }
     });
   }
