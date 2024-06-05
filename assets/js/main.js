@@ -272,8 +272,7 @@ function init() {
 
   function btnSearch() {
     body.btnBefore.addEventListener("click", () => {
-      if (pkID <= 1 || pkID > body.pkMax) {
-      } else {
+      if (pkID >= 2) {
         body.randomField.classList.remove("hidden");
         pkID--;
         searchPokemon(pkID);
