@@ -18,15 +18,8 @@ function init() {
     pkMax: 1025,
   };
 
-  let pkID = 1,
-    pkName,
-    pkTypes,
-    pkHeigth,
-    pkWeigth,
-    pkSprite;
-
   function showContainer(response) {
-    response ? searchPokemon(pkID) : body.container.classList.add("hidden");
+    response ? searchPokemon(1) : body.container.classList.add("hidden");
   }
 
   async function checkTVBezel() {
@@ -39,32 +32,24 @@ function init() {
     body.pokemonInput.value = "Buscando...";
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
-        data = await searchResponse.json(),
-        {
-          id,
-          name,
-          types,
-          height,
-          weight,
+        data = ({
+          id: pkID,
+          name: pkName,
+          types: pkTypes,
+          height: pkHeigth,
+          weight: pkWeigth,
           sprites: {
             other: {
-              "official-artwork": { front_default },
+              "official-artwork": { front_default: pkSprite },
             },
           },
-        } = data;
-
-      pkID = id;
-      pkName = name;
-      pkTypes = types;
-      pkHeigth = height;
-      pkWeigth = weight;
-      pkSprite = front_default;
-
+        } = await searchResponse.json());
       searchFound();
     } catch {
       notFound();
     }
   }
+
   function searchFound() {
     setTimeout(() => {
       insertSprite();
