@@ -1,20 +1,22 @@
 function init() {
-  const container = document.querySelector("#container"),
-    tvBezel = document.querySelector("#tvBezel"),
-    pokemonSprite = document.querySelector("#pokemonSprite"),
-    pokemonName = document.querySelector("#pokemonName"),
-    pokemonType = document.querySelector("#pokemonType"),
-    pokemonHeight = document.querySelector("#pokemonHeight"),
-    pokemonWeight = document.querySelector("#pokemonWeight"),
-    pokemonSearch = document.querySelector("#pokemonSearch"),
-    pokemonInput = document.querySelector("#pokemonInput"),
-    btnBefore = document.querySelector("#btnBefore"),
-    btnNext = document.querySelector("#btnNext"),
-    randomField = document.querySelector("#randomField"),
-    randomMsg = document.querySelector("#randomMsg"),
-    pkSpanIcon = `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`,
-    pkMin = 0,
-    pkMax = 1025;
+  const body = {
+    container: document.querySelector("#container"),
+    tvBezel: document.querySelector("#tvBezel"),
+    pokemonSprite: document.querySelector("#pokemonSprite"),
+    pokemonName: document.querySelector("#pokemonName"),
+    pokemonType: document.querySelector("#pokemonType"),
+    pokemonHeight: document.querySelector("#pokemonHeight"),
+    pokemonWeight: document.querySelector("#pokemonWeight"),
+    pokemonSearch: document.querySelector("#pokemonSearch"),
+    pokemonInput: document.querySelector("#pokemonInput"),
+    btnBefore: document.querySelector("#btnBefore"),
+    btnNext: document.querySelector("#btnNext"),
+    randomField: document.querySelector("#randomField"),
+    randomMsg: document.querySelector("#randomMsg"),
+    pkSpanIcon: `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`,
+    pkMin: 0,
+    pkMax: 1025,
+  };
 
   let pkID = 1,
     pkName,
@@ -24,17 +26,17 @@ function init() {
     pkSprite;
 
   function showContainer(response) {
-    response ? searchPokemon(pkID) : container.classList.add("hidden");
+    response ? searchPokemon(pkID) : body.container.classList.add("hidden");
   }
 
   async function checkTVBezel() {
-    const fetchTVBezel = await fetch(tvBezel.src);
+    const fetchTVBezel = await fetch(body.tvBezel.src);
     showContainer(fetchTVBezel.ok);
   }
   checkTVBezel();
 
   async function searchPokemon(pokemon) {
-    pokemonInput.value = "Buscando...";
+    body.pokemonInput.value = "Buscando...";
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
         data = await searchResponse.json(),
@@ -68,24 +70,24 @@ function init() {
       insertSprite();
       insertData();
       setPlaceHolder("ready");
-      pokemonInput.value = "";
-      tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
-      tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
+      body.pokemonInput.value = "";
+      body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+      body.tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
     }, 500);
   }
 
   function notFound() {
     setPlaceHolder("notReady");
-    pokemonInput.value = "";
-    pokemonName.innerText = "";
-    pokemonType.innerText = "";
-    pokemonHeight.innerText = "";
-    pokemonWeight.innerText = "";
-    pokemonSprite.setAttribute("alt", "");
-    pokemonSprite.setAttribute("src", "");
-    tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
-    tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
-    randomField.classList.add("hidden");
+    body.pokemonInput.value = "";
+    body.pokemonName.innerText = "";
+    body.pokemonType.innerText = "";
+    body.pokemonHeight.innerText = "";
+    body.pokemonWeight.innerText = "";
+    body.pokemonSprite.setAttribute("alt", "");
+    body.pokemonSprite.setAttribute("src", "");
+    body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
+    body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
+    body.randomField.classList.add("hidden");
     setTimeout(() => {
       setPlaceHolder("ready");
     }, 3000);
@@ -93,33 +95,33 @@ function init() {
 
   function setPlaceHolder(type) {
     if (type === "ready") {
-      pokemonInput.setAttribute("placeholder", "Nome Ou Número");
+      body.pokemonInput.setAttribute("placeholder", "Nome Ou Número");
     }
     if (type === "notReady") {
-      pokemonInput.setAttribute("placeholder", "Não encontrado");
+      body.pokemonInput.setAttribute("placeholder", "Não encontrado");
     }
   }
 
   function insertSprite() {
     if (pkSprite === null) {
-      pokemonSprite.setAttribute("src", "./assets/img/pkball.png");
-      pokemonSprite.setAttribute("alt", pkName);
+      body.pokemonSprite.setAttribute("src", "./assets/img/pkball.png");
+      body.pokemonSprite.setAttribute("alt", pkName);
     } else {
-      pokemonSprite.setAttribute("alt", pkName);
-      pokemonSprite.setAttribute("src", pkSprite);
+      body.pokemonSprite.setAttribute("alt", pkName);
+      body.pokemonSprite.setAttribute("src", pkSprite);
     }
   }
 
   function insertData() {
     if (pkID === 778) {
-      pokemonName.innerHTML = `${pkSpanIcon}${pkID} - Mimikyu`;
+      body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - Mimikyu`;
     } else {
-      pokemonName.innerHTML = `${pkSpanIcon}${pkID} - ${pkName}`;
+      body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - ${pkName}`;
 
       const typeID0 = pkTypes["0"]["type"]["name"];
 
       function insertType1(typeName) {
-        pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        body.pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
       }
 
       switch (typeID0) {
@@ -186,7 +188,7 @@ function init() {
         const typeID1 = pkTypes["1"]["type"]["name"];
 
         function insertType2(typeName) {
-          pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          body.pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
         }
 
         switch (typeID1) {
@@ -249,56 +251,56 @@ function init() {
             break;
         }
       }
-      pokemonHeight.innerText = `${pkHeigth * 10}cm`;
-      pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
+      body.pokemonHeight.innerText = `${pkHeigth * 10}cm`;
+      body.pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
     }
   }
 
   function missingNo() {
-    tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
-    randomField.classList.remove("hidden");
-    pokemonSprite.src = "./assets/img/missingno.png";
-    pkID = pkMin;
-    pokemonName.innerHTML = `${pkSpanIcon}${pkID} - MissingNo.`;
-    pokemonType.innerText = "Tipo: ???";
-    pokemonHeight.innerText = `${10 * 10}cm`;
-    pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
-    pokemonInput.value = "";
+    body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+    body.randomField.classList.remove("hidden");
+    body.pokemonSprite.src = "./assets/img/missingno.png";
+    pkID = body.pkMin;
+    body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - MissingNo.`;
+    body.pokemonType.innerText = "Tipo: ???";
+    body.pokemonHeight.innerText = `${10 * 10}cm`;
+    body.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
+    body.pokemonInput.value = "";
     setPlaceHolder("ready");
   }
 
   function formSearch() {
-    pokemonSearch.addEventListener("submit", (event) => {
+    body.pokemonSearch.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (+pokemonInput.value === pkMin || pokemonInput.value === "?") {
+      if (+body.pokemonInput.value === body.pkMin || body.pokemonInput.value === "?") {
         missingNo();
-      } else if (+pokemonInput.value < pkMin || +pokemonInput.value > pkMax) {
+      } else if (+body.pokemonInput.value < body.pkMin || +body.pokemonInput.value > body.pkMax) {
         notFound();
       } else {
-        randomField.classList.remove("hidden");
-        searchPokemon(pokemonInput.value);
+        body.randomField.classList.remove("hidden");
+        searchPokemon(body.pokemonInput.value);
       }
     });
   }
   formSearch();
 
   function btnSearch() {
-    btnBefore.addEventListener("click", () => {
-      if (pkID <= 1 || pkID > pkMax) {
+    body.btnBefore.addEventListener("click", () => {
+      if (pkID <= 1 || pkID > body.pkMax) {
       } else {
-        randomField.classList.remove("hidden");
+        body.randomField.classList.remove("hidden");
         pkID--;
         searchPokemon(pkID);
       }
     });
 
-    btnNext.addEventListener("click", () => {
+    body.btnNext.addEventListener("click", () => {
       pkID++;
-      if (pkID > pkMax) {
+      if (pkID > body.pkMax) {
         pkID--;
       } else {
-        randomField.classList.remove("hidden");
+        body.randomField.classList.remove("hidden");
         searchPokemon(pkID);
       }
     });
@@ -307,18 +309,18 @@ function init() {
   btnSearch();
 
   function randomPokemon() {
-    randomField.addEventListener("mouseenter", () => {
-      randomMsg.style.opacity = "1";
-      randomMsg.style.transition = ".5s";
+    body.randomField.addEventListener("mouseenter", () => {
+      body.randomMsg.style.opacity = "1";
+      body.randomMsg.style.transition = ".5s";
     });
 
-    randomField.addEventListener("mouseleave", () => {
-      randomMsg.style.opacity = "0";
-      randomMsg.style.transition = ".5s";
+    body.randomField.addEventListener("mouseleave", () => {
+      body.randomMsg.style.opacity = "0";
+      body.randomMsg.style.transition = ".5s";
     });
 
-    randomField.addEventListener("click", () => {
-      pkID = Math.floor(Math.random() * (pkMax - pkMin) + pkMin);
+    body.randomField.addEventListener("click", () => {
+      pkID = Math.floor(Math.random() * (body.pkMax - body.pkMin) + body.pkMin);
       searchPokemon(pkID);
     });
   }
