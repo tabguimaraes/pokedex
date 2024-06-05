@@ -64,20 +64,24 @@ function init() {
   }
 
   function notFound() {
+    clearFields();
     setPlaceHolder("notReady");
     body.pokemonInput.value = "";
+    body.randomField.classList.add("hidden");
+    body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
+    body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
+    setTimeout(() => {
+      setPlaceHolder("ready");
+    }, 3000);
+  }
+
+  function clearFields() {
     body.pokemonName.innerText = "";
     body.pokemonType.innerText = "";
     body.pokemonHeight.innerText = "";
     body.pokemonWeight.innerText = "";
     body.pokemonSprite.setAttribute("alt", "");
     body.pokemonSprite.setAttribute("src", "");
-    body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
-    body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
-    body.randomField.classList.add("hidden");
-    setTimeout(() => {
-      setPlaceHolder("ready");
-    }, 3000);
   }
 
   function setPlaceHolder(type) {
@@ -269,6 +273,7 @@ function init() {
         notFound();
       } else {
         body.randomField.classList.remove("hidden");
+        clearFields();
         searchPokemon(body.pokemonInput.value);
       }
     });
@@ -278,11 +283,10 @@ function init() {
   function btnSearch() {
     body.btnBefore.addEventListener("click", () => {
       if (pkID >= 2) {
+        pkID--;
         body.randomField.classList.remove("hidden");
-        setTimeout(() => {
-          pkID--;
-          searchPokemon(pkID);
-        }, 500);
+        clearFields();
+        searchPokemon(pkID);
       }
     });
 
@@ -292,9 +296,8 @@ function init() {
         pkID--;
       } else {
         body.randomField.classList.remove("hidden");
-        setTimeout(() => {
-          searchPokemon(pkID);
-        }, 500);
+        clearFields();
+        searchPokemon(pkID);
       }
     });
   }
@@ -314,6 +317,7 @@ function init() {
 
     body.randomField.addEventListener("click", () => {
       pkID = Math.floor(Math.random() * (body.pkMax - body.pkMin) + body.pkMin);
+      clearFields();
       searchPokemon(pkID);
     });
   }
