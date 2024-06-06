@@ -29,6 +29,8 @@ function init() {
   checkTVBezel();
 
   async function searchPokemon(pokemon) {
+    body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
+    body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
     body.pokemonInput.value = "Sintonizando...";
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
@@ -55,8 +57,8 @@ function init() {
       insertSprite();
       insertData();
       setPlaceHolder("ready");
-      body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
       body.tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
+      body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
     }, 500);
     setTimeout(() => {
       body.pokemonInput.value = "";
@@ -66,7 +68,6 @@ function init() {
   function notFound() {
     clearFields();
     setPlaceHolder("notReady");
-    body.pokemonInput.value = "";
     body.randomField.classList.add("hidden");
     body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
     body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
@@ -86,10 +87,15 @@ function init() {
 
   function setPlaceHolder(type) {
     if (type === "ready") {
+      body.pokemonInput.value = "";
       body.pokemonInput.setAttribute("placeholder", "Nome Ou Número");
     }
     if (type === "notReady") {
-      body.pokemonInput.setAttribute("placeholder", "Fora do Ar");
+      body.pokemonInput.value = "Sintonizando...";
+      setTimeout(() => {
+        body.pokemonInput.setAttribute("placeholder", "Fora do Ar");
+        body.pokemonInput.value = "";
+      }, 500);
     }
   }
 
@@ -316,6 +322,7 @@ function init() {
     });
 
     body.randomField.addEventListener("click", () => {
+      body.randomMsg.style.opacity = "0";
       pkID = Math.floor(Math.random() * (body.pkMax - body.pkMin) + body.pkMin);
       clearFields();
       searchPokemon(pkID);
