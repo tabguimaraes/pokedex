@@ -16,6 +16,8 @@ function init() {
     pkSpanIcon: `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`,
     pkMin: 0,
     pkMax: 1025,
+    switchAudio: document.querySelector("#switchAudio"),
+    failAudio: document.querySelector("#failAudio"),
   };
 
   function showContainer(response) {
@@ -29,9 +31,11 @@ function init() {
   checkTVBezel();
 
   async function searchPokemon(pokemon) {
+    body.failAudio.pause();
     body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
     body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
     body.pokemonInput.value = "Sintonizando...";
+    body.switchAudio.play();
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
         data = ({
@@ -54,6 +58,7 @@ function init() {
 
   function searchFound() {
     setTimeout(() => {
+      body.switchAudio.pause();
       insertSprite();
       insertData();
       setPlaceHolder("ready");
@@ -66,6 +71,7 @@ function init() {
   }
 
   function notFound() {
+    body.failAudio.play();
     clearFields();
     setPlaceHolder("notReady");
     body.randomField.classList.add("hidden");
