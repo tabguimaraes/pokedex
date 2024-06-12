@@ -18,6 +18,8 @@ function init() {
     pkMax: 1025,
     switchAudio: document.querySelector("#switchAudio"),
     failAudio: document.querySelector("#failAudio"),
+    btnVolumeOn: document.querySelector(".fa-volume-high"),
+    btnVolumeOff: document.querySelector(".fa-volume-xmark"),
   };
 
   function showContainer(response) {
@@ -335,5 +337,21 @@ function init() {
     });
   }
   randomPokemon();
+
+  function setVolume() {
+    body.btnVolumeOn.addEventListener("click", () => {
+      body.switchAudio.setAttribute("src", "");
+      body.failAudio.setAttribute("src", "");
+      body.btnVolumeOn.classList.toggle("hidden");
+      body.btnVolumeOff.classList.toggle("hidden");
+    });
+    body.btnVolumeOff.addEventListener("click", () => {
+      body.switchAudio.setAttribute("src", "./assets/audio/switch.ogg");
+      body.failAudio.setAttribute("src", "./assets/audio/fail.ogg");
+      body.btnVolumeOn.classList.toggle("hidden");
+      body.btnVolumeOff.classList.toggle("hidden");
+    });
+  }
+  setVolume();
 }
 init();
