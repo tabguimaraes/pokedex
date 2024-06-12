@@ -20,6 +20,7 @@ function init() {
     failAudio: document.querySelector("#failAudio"),
     btnVolumeOn: document.querySelector(".fa-volume-high"),
     btnVolumeOff: document.querySelector(".fa-volume-xmark"),
+    volMSG: document.querySelector("#volMSG"),
   };
 
   function showContainer(response) {
@@ -344,14 +345,36 @@ function init() {
       body.failAudio.setAttribute("src", "");
       body.btnVolumeOn.classList.toggle("hidden");
       body.btnVolumeOff.classList.toggle("hidden");
+      body.volMSG.innerHTML = "Off";
     });
     body.btnVolumeOff.addEventListener("click", () => {
       body.switchAudio.setAttribute("src", "./assets/audio/switch.ogg");
       body.failAudio.setAttribute("src", "./assets/audio/fail.ogg");
       body.btnVolumeOn.classList.toggle("hidden");
       body.btnVolumeOff.classList.toggle("hidden");
+      body.volMSG.innerHTML = "On";
     });
   }
   setVolume();
+  function displayVolMsg() {
+    body.btnVolumeOn.addEventListener("mouseenter", () => {
+      body.volMSG.style.opacity = "1";
+      body.volMSG.style.transition = ".5s";
+    });
+    body.btnVolumeOn.addEventListener("mouseleave", () => {
+      body.volMSG.style.opacity = "0";
+      body.volMSG.style.transition = ".5s";
+    });
+    body.btnVolumeOff.addEventListener("mouseenter", () => {
+      body.volMSG.style.opacity = "1";
+      body.volMSG.style.transition = ".5s";
+    });
+    body.btnVolumeOff.addEventListener("mouseleave", () => {
+      body.volMSG.style.opacity = "0";
+      body.volMSG.style.transition = ".5s";
+    });
+  }
+
+  displayVolMsg();
 }
 init();

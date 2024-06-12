@@ -12,8 +12,6 @@
     <section id="container">
       <img id="tvBezel" src="./assets/img/tv_bezel.png" />
       <img id="pokemonSprite" />
-      <i class="fa-solid fa-volume-high"></i>
-      <i class="fa-solid fa-volume-xmark fa-beat-fade hidden"></i>
       <p id="pokemonName"></p>
       <p id="pokemonType"></p>
       <p id="pokemonHeight"></p>
@@ -22,10 +20,13 @@
       <p id="btnBefore">&lt;&lt;</p>
       <p id="btnNext">&gt;&gt;</p>
       <div id="randomField">
-        <span id="randomMsg">Random</span>
+        <span id="randomMsg" class="hiddenMsgs">Random</span>
       </div>
+      <i class="fa-solid fa-volume-high"></i>
+      <i class="fa-solid fa-volume-xmark fa-beat-fade hidden"></i>
+      <span id="volMSG" class="hiddenMsgs">On</span>
       <audio id="switchAudio" src="./assets/audio/switch.ogg" preload="auto" loop></audio>
-      <audio id="failAudio" src="./assets/audio/fail.ogg" preload="auto"></audio>
+      <audio id="failAudio" src="./assets/audio/fail.ogg" preload="auto" loop></audio>
     </section>
     <script src="assets/js/main.js"></script>
   </body>
