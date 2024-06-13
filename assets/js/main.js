@@ -321,13 +321,11 @@ function init() {
 
   function randomPokemon() {
     body.randomField.addEventListener("mouseenter", () => {
-      body.randomMsg.style.opacity = "1";
-      body.randomMsg.style.transition = ".5s";
+      showSpan(body.randomMsg);
     });
 
     body.randomField.addEventListener("mouseleave", () => {
-      body.randomMsg.style.opacity = "0";
-      body.randomMsg.style.transition = ".5s";
+      hideSpan(body.randomMsg);
     });
 
     body.randomField.addEventListener("click", () => {
@@ -356,25 +354,32 @@ function init() {
     });
   }
   setVolume();
+
   function displayVolMsg() {
     body.btnVolumeOn.addEventListener("mouseenter", () => {
-      body.volMSG.style.opacity = "1";
-      body.volMSG.style.transition = ".5s";
+      showSpan(body.volMSG);
     });
     body.btnVolumeOn.addEventListener("mouseleave", () => {
-      body.volMSG.style.opacity = "0";
-      body.volMSG.style.transition = ".5s";
+      hideSpan(body.volMSG);
     });
     body.btnVolumeOff.addEventListener("mouseenter", () => {
-      body.volMSG.style.opacity = "1";
-      body.volMSG.style.transition = ".5s";
+      showSpan(body.volMSG);
     });
     body.btnVolumeOff.addEventListener("mouseleave", () => {
-      body.volMSG.style.opacity = "0";
-      body.volMSG.style.transition = ".5s";
+      hideSpan(body.volMSG);
     });
   }
 
   displayVolMsg();
+
+  function showSpan(element) {
+    element.style.opacity = "1";
+    element.style.transition = ".5s";
+  }
+
+  function hideSpan(element) {
+    element.style.opacity = "0";
+    element.style.transition = ".5s";
+  }
 }
 init();

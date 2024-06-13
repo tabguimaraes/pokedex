@@ -112,7 +112,7 @@ i {
   line-height: 1;
   text-align: center;
   border-radius: 20%;
-  background-color: #3a5eacb3;
+  background-color: #3a5eac;
   color: #ffcb05;
   opacity: 0;
 }
@@ -121,12 +121,11 @@ i {
   bottom: 8%;
   left: 8%;
   padding: 0.5%;
-  opacity: 0;
 }
 #randomMsg {
   top: -10%;
   right: -70%;
-  padding: 5%;
+  padding: 10%;
 }
 #btnNext,
 #btnBefore {
