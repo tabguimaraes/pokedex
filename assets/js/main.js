@@ -23,13 +23,9 @@ function init() {
     volMSG: document.querySelector("#volMSG"),
   };
 
-  function showContainer(response) {
-    response ? searchPokemon(1) : body.container.classList.add("hidden");
-  }
-
   async function checkTVBezel() {
     const fetchTVBezel = await fetch(body.tvBezel.src);
-    showContainer(fetchTVBezel.ok);
+    fetchTVBezel.ok ? searchPokemon(1) : addClass(body.container, "hidden");
   }
   checkTVBezel();
 
@@ -77,7 +73,7 @@ function init() {
     body.failAudio.play();
     clearFields();
     setPlaceHolder("notReady");
-    body.randomField.classList.add("hidden");
+    addClass(body.randomField, "hidden");
     body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
     body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
     setTimeout(() => {
@@ -264,7 +260,7 @@ function init() {
 
   function missingNo() {
     body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
-    body.randomField.classList.remove("hidden");
+    removeClass(body.randomField, "hidden");
     body.pokemonSprite.src = "./assets/img/missingno.png";
     pkID = body.pkMin;
     body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - MissingNo.`;
@@ -287,7 +283,7 @@ function init() {
       } else if (+body.pokemonInput.value < body.pkMin || +body.pokemonInput.value > body.pkMax) {
         notFound();
       } else {
-        body.randomField.classList.remove("hidden");
+        removeClass(body.randomField, "hidden");
         clearFields();
         searchPokemon(body.pokemonInput.value);
       }
@@ -299,7 +295,7 @@ function init() {
     body.btnBefore.addEventListener("click", () => {
       if (pkID >= 2) {
         pkID--;
-        body.randomField.classList.remove("hidden");
+        removeClass(body.randomField, "hidden");
         clearFields();
         searchPokemon(pkID);
       }
@@ -310,13 +306,12 @@ function init() {
       if (pkID > body.pkMax) {
         pkID--;
       } else {
-        body.randomField.classList.remove("hidden");
+        removeClass(body.randomField, "hidden");
         clearFields();
         searchPokemon(pkID);
       }
     });
   }
-
   btnSearch();
 
   function randomPokemon() {
@@ -369,7 +364,6 @@ function init() {
       hideSpan(body.volMSG);
     });
   }
-
   displayVolMsg();
 
   function showSpan(element) {
@@ -380,6 +374,14 @@ function init() {
   function hideSpan(element) {
     element.style.opacity = "0";
     element.style.transition = ".5s";
+  }
+
+  function addClass(element, classe) {
+    element.classList.add(classe);
+  }
+
+  function removeClass(element, classe) {
+    element.classList.remove(classe);
   }
 }
 init();
