@@ -315,13 +315,8 @@ function init() {
   btnSearch();
 
   function randomPokemon() {
-    body.randomField.addEventListener("mouseenter", () => {
-      showSpan(body.randomMsg);
-    });
-
-    body.randomField.addEventListener("mouseleave", () => {
-      hideSpan(body.randomMsg);
-    });
+    eventListener(body.randomField, "mouseenter", () => showSpan(body.randomMsg));
+    eventListener(body.randomField, "mouseleave", () => hideSpan(body.randomMsg));
 
     body.randomField.addEventListener("click", () => {
       body.randomMsg.style.opacity = "0";
@@ -350,21 +345,14 @@ function init() {
   }
   setVolume();
 
-  function displayVolMsg() {
-    body.btnVolumeOn.addEventListener("mouseenter", () => {
-      showSpan(body.volMSG);
-    });
-    body.btnVolumeOn.addEventListener("mouseleave", () => {
-      hideSpan(body.volMSG);
-    });
-    body.btnVolumeOff.addEventListener("mouseenter", () => {
-      showSpan(body.volMSG);
-    });
-    body.btnVolumeOff.addEventListener("mouseleave", () => {
-      hideSpan(body.volMSG);
-    });
+  function eventListener(element, event, ftn) {
+    element.addEventListener(event, ftn);
   }
-  displayVolMsg();
+
+  eventListener(body.btnVolumeOn, "mouseenter", () => showSpan(body.volMSG));
+  eventListener(body.btnVolumeOn, "mouseleave", () => hideSpan(body.volMSG));
+  eventListener(body.btnVolumeOff, "mouseenter", () => showSpan(body.volMSG));
+  eventListener(body.btnVolumeOff, "mouseleave", () => hideSpan(body.volMSG));
 
   function showSpan(element) {
     element.style.opacity = "1";
