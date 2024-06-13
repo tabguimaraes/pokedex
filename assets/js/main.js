@@ -35,6 +35,7 @@ function init() {
     body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
     body.pokemonInput.value = "Sintonizando...";
     body.switchAudio.play();
+    removeClass(body.container, "hidden");
     try {
       const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
         data = ({
@@ -58,11 +59,11 @@ function init() {
   function searchFound() {
     setTimeout(() => {
       body.switchAudio.pause();
-      insertSprite();
-      insertData();
       setPlaceHolder("ready");
       body.tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
       body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+      insertData();
+      insertSprite();
     }, 500);
     setTimeout(() => {
       body.pokemonInput.value = "";
