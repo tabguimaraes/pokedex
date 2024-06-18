@@ -21,6 +21,13 @@ body {
   flex-wrap: wrap;
   place-content: center;
 }
+i {
+  color: white;
+  position: absolute;
+  bottom: 8%;
+  left: 4%;
+  font-size: clamp(0.8rem, 0.5222rem + 0.8889vw, 2rem);
+}
 #container {
   margin: auto;
   max-width: 1200px;
@@ -31,13 +38,6 @@ body {
   #container {
     max-width: 850px;
   }
-}
-i {
-  color: white;
-  position: absolute;
-  bottom: 8%;
-  left: 4%;
-  font-size: clamp(0.8rem, 0.5222rem + 0.8889vw, 2rem);
 }
 #tvBezel {
   width: 100vw;
@@ -100,21 +100,6 @@ i {
   height: 32%;
   cursor: pointer;
 }
-.hidden {
-  display: none;
-}
-.hiddenMsgs {
-  position: absolute;
-  width: fit-content;
-  font-size: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
-  font-weight: 600;
-  line-height: 1;
-  text-align: center;
-  border-radius: 10%;
-  background-color: #3a5eac;
-  color: #ffcb05;
-  opacity: 0;
-}
 #volMSG {
   display: block;
   bottom: 8%;
@@ -162,6 +147,21 @@ i {
 }
 #btnBefore:active {
   box-shadow: inset -3px 3px 0 #222;
+}
+.hidden {
+  display: none;
+}
+.hiddenMsgs {
+  position: absolute;
+  width: fit-content;
+  font-size: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  border-radius: 10%;
+  background-color: #3a5eac;
+  color: #ffcb05;
+  opacity: 0;
 }
 .types {
   border-radius: 15%;

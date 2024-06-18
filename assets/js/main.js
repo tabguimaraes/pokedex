@@ -348,8 +348,8 @@ function init() {
     }
     setVolume();
 
-    function eventListener(element, event, ftn) {
-      element.addEventListener(event, ftn);
+    function eventListener(element, event, fctn) {
+      element.addEventListener(event, fctn);
     }
 
     eventListener(body.btnVolumeOn, "mouseenter", () => showSpan(body.volMSG));
