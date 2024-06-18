@@ -23,18 +23,20 @@ function init() {
     volMSG: document.querySelector("#volMSG"),
   };
 
-  //ajustar setTimeOut das funções
-
   async function checkTVBezel() {
     const fetchTVBezel = await fetch(body.tvBezel.src);
     fetchTVBezel.ok ? searchPokemon(1) : addClass(body.container, "hidden");
 
-    async function searchPokemon(pokemon) {
+    function tuneIn() {
       body.failAudio.pause();
       body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
       body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
       body.pokemonInput.value = "Sintonizando...";
       body.switchAudio.play();
+    }
+
+    async function searchPokemon(pokemon) {
+      tuneIn();
       removeClass(body.container, "hidden");
       try {
         const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
@@ -262,18 +264,22 @@ function init() {
     }
 
     function missingNo() {
-      body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+      clearFields();
+      tuneIn();
       removeClass(body.randomField, "hidden");
-      body.pokemonSprite.src = "./assets/img/missingno.png";
-      pkID = body.pkMin;
-      body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - MissingNo.`;
-      body.pokemonType.innerText = "Tipo: ???";
-      body.pokemonHeight.innerText = `${10 * 10}cm`;
-      body.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
-      body.pokemonInput.value = "!@#ERR0R";
-      setPlaceHolder("ready");
       setTimeout(() => {
-        body.pokemonInput.value = "";
+        body.switchAudio.pause();
+        body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+        body.pokemonSprite.src = "./assets/img/missingno.png";
+        pkID = body.pkMin;
+        body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - MissingNo.`;
+        body.pokemonType.innerText = "Tipo: ???";
+        body.pokemonHeight.innerText = `${10 * 10}cm`;
+        body.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
+        body.pokemonInput.value = "!@#ERR0R";
+      }, 1000);
+      setTimeout(() => {
+        setPlaceHolder("ready");
       }, 3000);
     }
 
