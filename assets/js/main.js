@@ -9,6 +9,7 @@ function init() {
     pokemonWeight: document.querySelector("#pokemonWeight"),
     pokemonSearch: document.querySelector("#pokemonSearch"),
     pokemonInput: document.querySelector("#pokemonInput"),
+    pokemonCries: document.querySelector("#pokemonCries"),
     btnBefore: document.querySelector("#btnBefore"),
     btnNext: document.querySelector("#btnNext"),
     randomField: document.querySelector("#randomField"),
@@ -46,6 +47,7 @@ function init() {
             types: pkTypes,
             height: pkHeigth,
             weight: pkWeigth,
+            cries: { latest: pkCries },
             sprites: {
               other: {
                 "official-artwork": { front_default: pkSprite },
@@ -115,6 +117,7 @@ function init() {
         } else {
           body.pokemonSprite.setAttribute("alt", pkName);
           body.pokemonSprite.setAttribute("src", pkSprite);
+          setPokemonCries();
         }
       }, 100);
     }
@@ -263,6 +266,15 @@ function init() {
       }
     }
 
+    function setPokemonCries() {
+      if (body.btnVolumeOn.classList.contains("hidden")) {
+      } else {
+        body.pokemonCries.setAttribute("src", pkCries);
+        body.pokemonCries.volume = 0.25;
+        body.pokemonCries.play();
+      }
+    }
+
     function missingNo() {
       clearFields();
       tuneIn();
@@ -277,6 +289,7 @@ function init() {
         body.pokemonHeight.innerText = `${10 * 10}cm`;
         body.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
         body.pokemonInput.value = "!@#ERR0R";
+        setPokemonCries();
       }, 1000);
       setTimeout(() => {
         setPlaceHolder("ready");
@@ -340,6 +353,7 @@ function init() {
       body.btnVolumeOn.addEventListener("click", () => {
         body.switchAudio.setAttribute("src", "");
         body.failAudio.setAttribute("src", "");
+        body.pokemonCries.setAttribute("src", "");
         body.btnVolumeOn.classList.toggle("hidden");
         body.btnVolumeOff.classList.toggle("hidden");
         body.volMSG.innerHTML = "Off";
