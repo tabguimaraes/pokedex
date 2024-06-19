@@ -266,15 +266,6 @@ function init() {
       }
     }
 
-    function setPokemonCries() {
-      if (body.btnVolumeOn.classList.contains("hidden")) {
-      } else {
-        body.pokemonCries.setAttribute("src", pkCries);
-        body.pokemonCries.volume = 0.25;
-        body.pokemonCries.play();
-      }
-    }
-
     function missingNo() {
       clearFields();
       tuneIn();
@@ -348,6 +339,15 @@ function init() {
       });
     }
     randomPokemon();
+
+    function setPokemonCries() {
+      if (body.btnVolumeOn.classList.contains("hidden")) {
+      } else {
+        body.pokemonCries.setAttribute("src", pkCries);
+        body.pokemonCries.volume = 0.25;
+        body.pokemonCries.play();
+      }
+    }
 
     function setVolume() {
       body.btnVolumeOn.addEventListener("click", () => {
