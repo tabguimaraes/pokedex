@@ -58,6 +58,7 @@ function init() {
       } catch {
         notFound();
       }
+      body.randomField.classList.toggle("hidden");
     }
 
     function searchFound() {
@@ -328,15 +329,17 @@ function init() {
     btnSearch();
 
     function randomPokemon() {
-      eventListener(body.randomField, "mouseenter", () => showSpan(body.randomMsg));
-      eventListener(body.randomField, "mouseleave", () => hideSpan(body.randomMsg));
-
       body.randomField.addEventListener("click", () => {
-        body.randomMsg.style.opacity = "0";
+        body.randomField.classList.toggle("hidden");
+        hideSpan(body.randomMsg);
+        // body.randomMsg.style.opacity = "0";
         pkID = Math.floor(Math.random() * (body.pkMax - body.pkMin) + body.pkMin);
         clearFields();
         searchPokemon(pkID);
+        // body.randomField.classList.toggle("hidden");
       });
+      eventListener(body.randomField, "mouseenter", () => showSpan(body.randomMsg));
+      eventListener(body.randomField, "mouseleave", () => hideSpan(body.randomMsg));
     }
     randomPokemon();
 
@@ -378,13 +381,15 @@ function init() {
     eventListener(body.btnVolumeOff, "mouseleave", () => hideSpan(body.volMSG));
 
     function showSpan(element) {
+      element.style.transition = "1s";
       element.style.opacity = "1";
-      element.style.transition = ".5s";
+      element.style.display = "block";
     }
 
     function hideSpan(element) {
+      element.style.transition = "1s";
       element.style.opacity = "0";
-      element.style.transition = ".5s";
+      element.style.display = "none";
     }
 
     function addClass(element, classe) {

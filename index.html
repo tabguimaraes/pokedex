@@ -11,19 +11,22 @@
   <body>
     <section id="container" class="hidden">
       <img id="tvBezel" src="./assets/img/tv_bezel.png" />
-      <img id="pokemonSprite" />
-      <p id="pokemonName"></p>
-      <p id="pokemonType"></p>
-      <p id="pokemonHeight"></p>
-      <p id="pokemonWeight"></p>
-      <form id="pokemonSearch"><input id="pokemonInput" type="text" required placeholder="Nome ou número" autofocus /></form>
-      <p id="btnBefore">&lt;&lt;</p>
-      <p id="btnNext">&gt;&gt;</p>
-      <div id="randomField"></div>
-      <span id="randomMsg" class="hiddenMsgs">Random</span>
-      <i class="fa-solid fa-volume-high"></i>
-      <i class="fa-solid fa-volume-xmark fa-beat-fade hidden"></i>
-      <span id="volMSG" class="hiddenMsgs">On</span>
+      <img id="pokemonSprite" class="elementPositionAbsolute" />
+      <p id="pokemonName" class="fontsCommonStyles elementPositionAbsolute"></p>
+      <p id="pokemonType" class="fontsCommonStyles elementPositionAbsolute"></p>
+      <p id="pokemonHeight" class="fontsCommonStyles elementPositionAbsolute"></p>
+      <p id="pokemonWeight" class="fontsCommonStyles elementPositionAbsolute"></p>
+      <form id="pokemonSearch" class="elementPositionAbsolute">
+        <input id="pokemonInput" class="fontsCommonStyles" type="text" required placeholder="Nome ou número" autofocus />
+      </form>
+      <p id="btnBefore" class="btnStyle elementPositionAbsolute">&lt;&lt;</p>
+      <p id="btnNext" class="btnStyle elementPositionAbsolute">&gt;&gt;</p>
+      <div id="randomField" class="hidden elementPositionAbsolute">
+        <span id="randomMsg" class="hiddenMsgs fontsCommonStyles elementPositionAbsolute">Random</span>
+      </div>
+      <i class="btnVol fa-solid fa-volume-high"></i>
+      <i class="btnVol fa-solid fa-volume-xmark fa-beat-fade hidden"></i>
+      <span id="volMSG" class="hiddenMsgs fontsCommonStyles elementPositionAbsolute">On</span>
       <audio id="switchAudio" src="./assets/audio/switch.ogg" preload="auto" loop></audio>
       <audio id="failAudio" src="./assets/audio/fail.ogg" preload="auto" loop></audio>
       <audio id="pokemonCries" src="" preload="auto"></audio>

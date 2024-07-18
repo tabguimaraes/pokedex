@@ -21,13 +21,7 @@ body {
   flex-wrap: wrap;
   place-content: center;
 }
-i {
-  color: white;
-  position: absolute;
-  bottom: 8%;
-  left: 4%;
-  font-size: clamp(0.8rem, 0.5222rem + 0.8889vw, 2rem);
-}
+
 #container {
   margin: auto;
   max-width: 1200px;
@@ -42,35 +36,25 @@ i {
 #tvBezel {
   width: 100vw;
 }
-#pokemonName,
-#pokemonType,
-#pokemonHeight,
-#pokemonWeight,
-#pokemonSearch input {
-  position: absolute;
-  left: 77.5%;
-  font-size: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
-  font-weight: 600;
-  line-height: 0;
-}
+
 #pokemonSprite {
   transform: translate(-5%, 0%);
-  position: absolute;
   top: 25%;
   left: 14%;
   height: 43%;
 }
 #pokemonName > span > img {
-  height: clamp(0.6rem, -0.125rem + 1.1vw, 1.8vw);
+  /* height: clamp(0.6rem, -0.125rem + 1.1vw, 1.8vw); */
+  height: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
 }
 #pokemonName {
-  top: 7.3%;
+  top: 7%;
   display: flex;
-  align-items: baseline;
+  align-items: center;
 }
 @media (max-width: 600px) {
   #pokemonName {
-    top: 6.4%;
+    top: 7%;
   }
 }
 #pokemonType {
@@ -83,20 +67,30 @@ i {
   top: 20.8%;
 }
 #pokemonSearch input {
-  top: 25%;
   outline: none;
   border: none;
-  max-width: 19%;
+  max-width: 89%;
+}
+@media (max-width: 700px) {
+  #pokemonSearch input {
+    font-size: clamp(0.5rem, 0.418rem + 0.485vw, 0.6rem);
+    max-width: 73%;
+  }
 }
 #pokemonSearch {
-  width: fit-content;
+  top: 25%;
   height: fit-content;
 }
+@media (max-width: 600px) {
+  #pokemonSearch {
+    top: 23%;
+    /* max-width: 23%; */
+  }
+}
 #randomField {
-  position: absolute;
   top: 22.5%;
-  right: 39%;
-  width: 11%;
+  left: 49%;
+  width: 12%;
   height: 32%;
   cursor: pointer;
 }
@@ -107,23 +101,11 @@ i {
   padding: 0.5%;
 }
 #randomMsg {
-  position: absolute;
-  top: 18%;
-  right: 32%;
-  padding: 1%;
+  top: -18%;
+  right: -32%;
+  padding: 10%;
 }
-#btnNext,
-#btnBefore {
-  position: absolute;
-  top: 81.5%;
-  border-radius: 15%;
-  font-size: clamp(0.625rem, 0.5019rem + 0.5252vw, 1.375rem);
-  font-weight: 800;
-  cursor: pointer;
-  color: white;
-  background-color: #444;
-  box-shadow: -2px 3px 0 #222, -4px 6px 0 #000;
-}
+
 #btnBefore {
   left: 77.8%;
   padding: 0.2% 4.5% 0.2% 1.5%;
@@ -148,20 +130,44 @@ i {
 #btnBefore:active {
   box-shadow: inset -3px 3px 0 #222;
 }
+.btnStyle {
+  top: 81.5%;
+  border-radius: 15%;
+  font-size: clamp(0.625rem, 0.5019rem + 0.5252vw, 1.375rem);
+  font-weight: 800;
+  line-height: normal;
+  cursor: pointer;
+  color: white;
+  background-color: #444;
+  box-shadow: -2px 3px 0 #222, -4px 6px 0 #000;
+}
+.btnVol {
+  position: absolute;
+  color: white;
+  bottom: 8%;
+  left: 4%;
+  font-size: clamp(0.8rem, 0.5222rem + 0.8889vw, 2rem);
+}
+.elementPositionAbsolute {
+  position: absolute;
+  left: 77.5%;
+}
+.fontsCommonStyles {
+  font-size: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
+  font-weight: 600;
+  line-height: 0;
+}
 .hidden {
   display: none;
 }
 .hiddenMsgs {
-  position: absolute;
   width: fit-content;
-  font-size: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
-  font-weight: 600;
-  line-height: 1;
   text-align: center;
   border-radius: 10%;
   background-color: #3a5eac;
   color: #ffcb05;
   opacity: 0;
+  line-height: 1;
 }
 .types {
   border-radius: 10%;
