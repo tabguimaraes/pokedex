@@ -21,7 +21,6 @@ body {
   flex-wrap: wrap;
   place-content: center;
 }
-
 #container {
   margin: auto;
   max-width: 1200px;
@@ -30,13 +29,12 @@ body {
 }
 @media (max-height: 800px) {
   #container {
-    max-width: 850px;
+    max-width: 800px;
   }
 }
 #tvBezel {
   width: 100vw;
 }
-
 #pokemonSprite {
   transform: translate(-5%, 0%);
   top: 25%;
@@ -44,8 +42,7 @@ body {
   height: 43%;
 }
 #pokemonName > span > img {
-  /* height: clamp(0.6rem, -0.125rem + 1.1vw, 1.8vw); */
-  height: clamp(0.25rem, 0.5019rem + 0.5252vw, 1.375rem);
+  height: clamp(0.125rem, 0.5019rem + 0.5252vw, 1rem);
 }
 #pokemonName {
   top: 7%;
@@ -67,25 +64,15 @@ body {
   top: 20.8%;
 }
 #pokemonSearch input {
+  top: 25%;
   outline: none;
   border: none;
-  max-width: 89%;
-}
-@media (max-width: 700px) {
-  #pokemonSearch input {
-    font-size: clamp(0.5rem, 0.418rem + 0.485vw, 0.6rem);
-    max-width: 73%;
-  }
+  max-width: 19%;
+  font-size: clamp(0.25rem, 0.418rem + 0.6252vw, 1.375rem);
 }
 #pokemonSearch {
-  top: 25%;
+  width: fit-content;
   height: fit-content;
-}
-@media (max-width: 600px) {
-  #pokemonSearch {
-    top: 23%;
-    /* max-width: 23%; */
-  }
 }
 #randomField {
   top: 22.5%;
@@ -105,7 +92,6 @@ body {
   right: -32%;
   padding: 10%;
 }
-
 #btnBefore {
   left: 77.8%;
   padding: 0.2% 4.5% 0.2% 1.5%;
