@@ -30,6 +30,7 @@ function init() {
 
     function tuneIn() {
       body.failAudio.pause();
+      body.randomField.classList.toggle("hidden");
       body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
       body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
       body.pokemonInput.value = "Sintonizando...";
@@ -58,7 +59,6 @@ function init() {
       } catch {
         notFound();
       }
-      body.randomField.classList.toggle("hidden");
     }
 
     function searchFound() {
@@ -67,6 +67,7 @@ function init() {
         setPlaceHolder("ready");
         body.tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
         body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+        body.randomField.classList.toggle("hidden");
         insertData();
         insertSprite();
       }, 500);
@@ -79,7 +80,7 @@ function init() {
       body.failAudio.play();
       clearFields();
       setPlaceHolder("notReady");
-      addClass(body.randomField, "hidden");
+      body.randomField.classList.toggle("hidden");
       body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
       body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
       setTimeout(() => {
@@ -270,7 +271,6 @@ function init() {
     function missingNo() {
       clearFields();
       tuneIn();
-      removeClass(body.randomField, "hidden");
       setTimeout(() => {
         body.switchAudio.pause();
         body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
@@ -282,6 +282,7 @@ function init() {
         body.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
         body.pokemonInput.value = "!@#ERR0R";
         setPokemonCries();
+        body.randomField.classList.toggle("hidden");
       }, 1000);
       setTimeout(() => {
         setPlaceHolder("ready");
@@ -309,9 +310,10 @@ function init() {
       body.btnBefore.addEventListener("click", () => {
         if (pkID >= 2) {
           pkID--;
-          removeClass(body.randomField, "hidden");
+          addClass(body.randomField, "hidden");
           clearFields();
           searchPokemon(pkID);
+          body.randomField.classList.toggle("hidden");
         }
       });
 
@@ -320,9 +322,10 @@ function init() {
         if (pkID > body.pkMax) {
           pkID--;
         } else {
-          removeClass(body.randomField, "hidden");
+          addClass(body.randomField, "hidden");
           clearFields();
           searchPokemon(pkID);
+          body.randomField.classList.toggle("hidden");
         }
       });
     }
@@ -330,13 +333,10 @@ function init() {
 
     function randomPokemon() {
       body.randomField.addEventListener("click", () => {
-        body.randomField.classList.toggle("hidden");
         hideSpan(body.randomMsg);
-        // body.randomMsg.style.opacity = "0";
         pkID = Math.floor(Math.random() * (body.pkMax - body.pkMin) + body.pkMin);
         clearFields();
         searchPokemon(pkID);
-        // body.randomField.classList.toggle("hidden");
       });
       eventListener(body.randomField, "mouseenter", () => showSpan(body.randomMsg));
       eventListener(body.randomField, "mouseleave", () => hideSpan(body.randomMsg));
@@ -383,13 +383,11 @@ function init() {
     function showSpan(element) {
       element.style.transition = "1s";
       element.style.opacity = "1";
-      element.style.display = "block";
     }
 
     function hideSpan(element) {
       element.style.transition = "1s";
       element.style.opacity = "0";
-      element.style.display = "none";
     }
 
     function addClass(element, classe) {
