@@ -24,6 +24,27 @@ function init() {
     volMSG: document.querySelector("#volMSG"),
   };
 
+  const typeNames = {
+    bug: "Inseto",
+    dark: "Sombrio",
+    dragon: "Dragão",
+    electric: "Elétrico",
+    fairy: "Fada",
+    fighting: "Lutador",
+    fire: "Fogo",
+    flying: "Voador",
+    ghost: "Fantasma",
+    grass: "Grama",
+    ground: "Terra",
+    ice: "Gelo",
+    normal: "Normal",
+    poison: "Veneno",
+    psychic: "Psíquico",
+    rock: "Pedra",
+    steel: "Metal",
+    water: "Água",
+  };
+
   async function checkTVBezel() {
     const fetchTVBezel = await fetch(body.tvBezel.src);
     fetchTVBezel.ok ? searchPokemon(1) : addClass(body.container, "hidden");
@@ -132,136 +153,24 @@ function init() {
 
         const typeID0 = pkTypes["0"]["type"]["name"];
 
-        function insertType1(typeName) {
-          body.pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+        function insertType1(typeID0) {
+          const typeName = typeNames[typeID0];
+          if (typeName) {
+            body.pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+          }
         }
-
-        switch (typeID0) {
-          case "bug":
-            insertType1("Inseto");
-            break;
-          case "dark":
-            insertType1("Sombrio");
-            break;
-          case "dragon":
-            insertType1("Dragão");
-            break;
-          case "electric":
-            insertType1("Elétrico");
-            break;
-          case "fairy":
-            insertType1("Fada");
-            break;
-          case "fighting":
-            insertType1("Lutador");
-            break;
-          case "fire":
-            insertType1("Fogo");
-            break;
-          case "flying":
-            insertType1("Voador");
-            break;
-          case "ghost":
-            insertType1("Fantasma");
-            break;
-          case "grass":
-            insertType1("Grama");
-            break;
-          case "ground":
-            insertType1("Terra");
-            break;
-          case "ice":
-            insertType1("Gelo");
-            break;
-          case "normal":
-            insertType1("Normal");
-            break;
-          case "poison":
-            insertType1("Veneno");
-            break;
-          case "psychic":
-            insertType1("Psíquico");
-            break;
-          case "rock":
-            insertType1("Pedra");
-            break;
-          case "steel":
-            insertType1("Metal");
-            break;
-          case "water":
-            insertType1("Água");
-            break;
-
-          default:
-            break;
-        }
+        insertType1(typeID0);
 
         if (pkTypes.length > 1) {
           const typeID1 = pkTypes["1"]["type"]["name"];
 
-          function insertType2(typeName) {
-            body.pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+          function insertType2(typeID1) {
+            const typeName = typeNames[typeID1];
+            if (typeName) {
+              body.pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+            }
           }
-
-          switch (typeID1) {
-            case "bug":
-              insertType2("Inseto");
-              break;
-            case "dark":
-              insertType2("Sombrio");
-              break;
-            case "dragon":
-              insertType2("Dragão");
-              break;
-            case "electric":
-              insertType2("Elétrico");
-              break;
-            case "fairy":
-              insertType2("Fada");
-              break;
-            case "fighting":
-              insertType2("Lutador");
-              break;
-            case "fire":
-              insertType2("Fogo");
-              break;
-            case "flying":
-              insertType2("Voador");
-              break;
-            case "ghost":
-              insertType2("Fantasma");
-              break;
-            case "grass":
-              insertType2("Grama");
-              break;
-            case "ground":
-              insertType2("Terra");
-              break;
-            case "ice":
-              insertType2("Gelo");
-              break;
-            case "normal":
-              insertType2("Normal");
-              break;
-            case "poison":
-              insertType2("Veneno");
-              break;
-            case "psychic":
-              insertType2("Psíquico");
-              break;
-            case "rock":
-              insertType2("Pedra");
-              break;
-            case "steel":
-              insertType2("Metal");
-              break;
-            case "water":
-              insertType2("Água");
-              break;
-
-            default:
-              break;
-          }
+          insertType2(typeID1);
         }
         body.pokemonHeight.innerText = `${pkHeigth * 10}cm`;
         body.pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
