@@ -1,81 +1,97 @@
 function init() {
-  const body = {
-    container: document.querySelector("#container"),
-    tvBezel: document.querySelector("#tvBezel"),
-    pokemonSprite: document.querySelector("#pokemonSprite"),
-    pokemonName: document.querySelector("#pokemonName"),
-    pokemonType: document.querySelector("#pokemonType"),
-    pokemonHeight: document.querySelector("#pokemonHeight"),
-    pokemonWeight: document.querySelector("#pokemonWeight"),
-    pokemonSearch: document.querySelector("#pokemonSearch"),
-    pokemonInput: document.querySelector("#pokemonInput"),
-    pokemonCries: document.querySelector("#pokemonCries"),
-    btnBefore: document.querySelector("#btnBefore"),
-    btnNext: document.querySelector("#btnNext"),
-    randomField: document.querySelector("#randomField"),
-    randomMsg: document.querySelector("#randomMsg"),
-    pkSpanIcon: `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`,
-    pkMin: 0,
-    pkMax: 1025,
-    switchAudio: document.querySelector("#switchAudio"),
-    failAudio: document.querySelector("#failAudio"),
-    btnVolumeOn: document.querySelector(".fa-volume-high"),
-    btnVolumeOff: document.querySelector(".fa-volume-xmark"),
-    volMSG: document.querySelector("#volMSG"),
-  };
-
-  const typeNames = {
-    bug: "Inseto",
-    dark: "Sombrio",
-    dragon: "Dragão",
-    electric: "Elétrico",
-    fairy: "Fada",
-    fighting: "Lutador",
-    fire: "Fogo",
-    flying: "Voador",
-    ghost: "Fantasma",
-    grass: "Grama",
-    ground: "Terra",
-    ice: "Gelo",
-    normal: "Normal",
-    poison: "Veneno",
-    psychic: "Psíquico",
-    rock: "Pedra",
-    steel: "Metal",
-    water: "Água",
+  const state = {
+    view: {
+      container: document.querySelector("#container"),
+      tvBezel: document.querySelector("#tvBezel"),
+      pokemonSprite: document.querySelector("#pokemonSprite"),
+      pokemonName: document.querySelector("#pokemonName"),
+      pokemonType: document.querySelector("#pokemonType"),
+      pokemonHeight: document.querySelector("#pokemonHeight"),
+      pokemonWeight: document.querySelector("#pokemonWeight"),
+      pokemonSearch: document.querySelector("#pokemonSearch"),
+      pokemonInput: document.querySelector("#pokemonInput"),
+      pokemonCries: document.querySelector("#pokemonCries"),
+      btnBefore: document.querySelector("#btnBefore"),
+      btnNext: document.querySelector("#btnNext"),
+      randomField: document.querySelector("#randomField"),
+      randomMsg: document.querySelector("#randomMsg"),
+      pkSpanIcon: `<span><img src="./assets/img/favicon-16x16.png" alt="ícone de uma pokebola" /></span>&nbsp;`,
+      pkMin: 0,
+      pkMax: 1025,
+      switchAudio: document.querySelector("#switchAudio"),
+      failAudio: document.querySelector("#failAudio"),
+      btnVolumeOn: document.querySelector(".fa-volume-high"),
+      btnVolumeOff: document.querySelector(".fa-volume-xmark"),
+      volMSG: document.querySelector("#volMSG"),
+    },
+    type: {
+      bug: "Inseto",
+      dark: "Sombrio",
+      dragon: "Dragão",
+      electric: "Elétrico",
+      fairy: "Fada",
+      fighting: "Lutador",
+      fire: "Fogo",
+      flying: "Voador",
+      ghost: "Fantasma",
+      grass: "Grama",
+      ground: "Terra",
+      ice: "Gelo",
+      normal: "Normal",
+      poison: "Veneno",
+      psychic: "Psíquico",
+      rock: "Pedra",
+      steel: "Metal",
+      water: "Água",
+    },
+    values: {
+      id: null,
+      name: null,
+      types: null,
+      height: null,
+      weight: null,
+      cries: { latest: null },
+      sprites: {
+        other: {
+          "official-artwork": { front_default: null },
+        },
+      },
+      fetchTVBezel: null,
+      searchResponse: null,
+    },
   };
 
   async function checkTVBezel() {
-    const fetchTVBezel = await fetch(body.tvBezel.src);
-    fetchTVBezel.ok ? searchPokemon(1) : addClass(body.container, "hidden");
+    state.values.fetchTVBezel = await fetch(state.view.tvBezel.src);
+    state.values.fetchTVBezel.ok ? searchPokemon(1) : addClass(state.view.container, "hidden");
 
     function tuneIn() {
-      body.failAudio.pause();
-      body.randomField.classList.toggle("hidden");
-      body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
-      body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
-      body.pokemonInput.value = "Sintonizando...";
-      body.switchAudio.play();
+      state.view.failAudio.pause();
+      state.view.randomField.classList.toggle("hidden");
+      state.view.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
+      state.view.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
+      state.view.pokemonInput.value = "Sintonizando...";
+      state.view.switchAudio.play();
     }
 
     async function searchPokemon(pokemon) {
       tuneIn();
-      removeClass(body.container, "hidden");
+      removeClass(state.view.container, "hidden");
       try {
-        const searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase()),
-          data = ({
-            id: pkID,
-            name: pkName,
-            types: pkTypes,
-            height: pkHeigth,
-            weight: pkWeigth,
-            cries: { latest: pkCries },
-            sprites: {
-              other: {
-                "official-artwork": { front_default: pkSprite },
-              },
+        state.values.searchResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`.toLowerCase());
+        state.values = {
+          id,
+          name,
+          types,
+          height,
+          weight,
+          cries: { latest },
+          sprites: {
+            other: {
+              "official-artwork": { front_default },
             },
-          } = await searchResponse.json());
+          },
+        } = await state.values.searchResponse.json();
         searchFound();
       } catch {
         notFound();
@@ -84,96 +100,96 @@ function init() {
 
     function searchFound() {
       setTimeout(() => {
-        body.switchAudio.pause();
+        state.view.switchAudio.pause();
         setPlaceHolder("ready");
-        body.tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${pkName}`);
-        body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
-        body.randomField.classList.toggle("hidden");
+        state.view.tvBezel.setAttribute("alt", `Figura de uma televisão mostrando o pokemon ${state.values.name}`);
+        state.view.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+        state.view.randomField.classList.toggle("hidden");
         insertData();
         insertSprite();
       }, 500);
       setTimeout(() => {
-        body.pokemonInput.value = "";
+        state.view.pokemonInput.value = "";
       }, 900);
     }
 
     function notFound() {
-      body.failAudio.play();
+      state.view.failAudio.play();
       clearFields();
       setPlaceHolder("notReady");
-      body.randomField.classList.toggle("hidden");
-      body.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
-      body.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
+      state.view.randomField.classList.toggle("hidden");
+      state.view.tvBezel.setAttribute("src", "./assets/img/tv_no_signal.png");
+      state.view.tvBezel.setAttribute("alt", "Figura de uma televisão sem sinal");
       setTimeout(() => {
         setPlaceHolder("ready");
       }, 3000);
     }
 
     function clearFields() {
-      body.pokemonName.innerText = "";
-      body.pokemonType.innerText = "";
-      body.pokemonHeight.innerText = "";
-      body.pokemonWeight.innerText = "";
-      body.pokemonSprite.setAttribute("alt", "");
-      body.pokemonSprite.setAttribute("src", "");
+      state.view.pokemonName.innerText = "";
+      state.view.pokemonType.innerText = "";
+      state.view.pokemonHeight.innerText = "";
+      state.view.pokemonWeight.innerText = "";
+      state.view.pokemonSprite.setAttribute("alt", "");
+      state.view.pokemonSprite.setAttribute("src", "");
     }
 
     function setPlaceHolder(type) {
       if (type === "ready") {
-        body.pokemonInput.value = "";
-        body.pokemonInput.setAttribute("placeholder", "Nome Ou Número");
+        state.view.pokemonInput.value = "";
+        state.view.pokemonInput.setAttribute("placeholder", "Nome Ou Número");
       }
       if (type === "notReady") {
-        body.pokemonInput.value = "Sintonizando...";
+        state.view.pokemonInput.value = "Sintonizando...";
         setTimeout(() => {
-          body.pokemonInput.setAttribute("placeholder", "Fora do Ar");
-          body.pokemonInput.value = "";
+          state.view.pokemonInput.setAttribute("placeholder", "Fora do Ar");
+          state.view.pokemonInput.value = "";
         }, 500);
       }
     }
 
     function insertSprite() {
       setTimeout(() => {
-        if (pkSprite === null) {
-          body.pokemonSprite.setAttribute("src", "./assets/img/pkball.png");
-          body.pokemonSprite.setAttribute("alt", pkName);
+        if (state.values.sprites.other["official-artwork"].front_default === null) {
+          state.view.pokemonSprite.setAttribute("src", "./assets/img/pkball.png");
+          state.view.pokemonSprite.setAttribute("alt", state.values.name);
         } else {
-          body.pokemonSprite.setAttribute("alt", pkName);
-          body.pokemonSprite.setAttribute("src", pkSprite);
+          state.view.pokemonSprite.setAttribute("alt", state.values.name);
+          state.view.pokemonSprite.setAttribute("src", state.values.sprites.other["official-artwork"].front_default);
           setPokemonCries();
         }
       }, 100);
     }
 
     function insertData() {
-      if (pkID === 778) {
-        body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - Mimikyu`;
+      if (state.values.id === 778) {
+        state.view.pokemonName.innerHTML = `${state.view.pkSpanIcon}${state.values.id} - Mimikyu`;
       } else {
-        body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - ${pkName}`;
+        state.view.pokemonName.innerHTML = `${state.view.pkSpanIcon}${state.values.id} - ${state.values.name}`;
 
-        const typeID0 = pkTypes["0"]["type"]["name"];
+        const typeID0 = state.values.types["0"]["type"]["name"];
 
         function insertType1(typeID0) {
-          const typeName = typeNames[typeID0];
+          const typeName = state.type[typeID0];
           if (typeName) {
-            body.pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
+            state.view.pokemonType.innerHTML = `<span class='types ${typeID0}'>${typeName}</span>`;
           }
         }
         insertType1(typeID0);
 
-        if (pkTypes.length > 1) {
-          const typeID1 = pkTypes["1"]["type"]["name"];
+        if (state.values.types.length > 1) {
+          const typeID1 = state.values.types["1"]["type"]["name"];
 
           function insertType2(typeID1) {
-            const typeName = typeNames[typeID1];
+            const typeName = state.type[typeID1];
             if (typeName) {
-              body.pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
+              state.view.pokemonType.innerHTML += `&nbsp;<span class='types ${typeID1}'>${typeName}</span>`;
             }
           }
           insertType2(typeID1);
         }
-        body.pokemonHeight.innerText = `${pkHeigth * 10}cm`;
-        body.pokemonWeight.innerText = `${pkWeigth / 10}Kg`;
+        state.view.pokemonHeight.innerText = `${state.values.height * 10}cm`;
+        state.view.pokemonWeight.innerText = `${state.values.weight / 10}Kg`;
       }
     }
 
@@ -181,17 +197,17 @@ function init() {
       clearFields();
       tuneIn();
       setTimeout(() => {
-        body.switchAudio.pause();
-        body.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
-        body.pokemonSprite.src = "./assets/img/missingno.png";
-        pkID = body.pkMin;
-        body.pokemonName.innerHTML = `${body.pkSpanIcon}${pkID} - MissingNo.`;
-        body.pokemonType.innerText = "Tipo: ???";
-        body.pokemonHeight.innerText = `${10 * 10}cm`;
-        body.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
-        body.pokemonInput.value = "!@#ERR0R";
+        state.view.switchAudio.pause();
+        state.view.tvBezel.setAttribute("src", "./assets/img/tv_bezel.png");
+        state.view.pokemonSprite.src = "./assets/img/missingno.png";
+        state.values.id = state.view.pkMin;
+        state.view.pokemonName.innerHTML = `${state.view.pkSpanIcon}${state.values.id} - MissingNo.`;
+        state.view.pokemonType.innerText = "Tipo: ???";
+        state.view.pokemonHeight.innerText = `${10 * 10}cm`;
+        state.view.pokemonWeight.innerText = `${(3507.2 / 10).toFixed(1)}Kg`;
+        state.view.pokemonInput.value = "!@#ERR0R";
         setPokemonCries();
-        body.randomField.classList.toggle("hidden");
+        state.view.randomField.classList.toggle("hidden");
       }, 1000);
       setTimeout(() => {
         setPlaceHolder("ready");
@@ -199,83 +215,83 @@ function init() {
     }
 
     function formSearch() {
-      body.pokemonSearch.addEventListener("submit", (event) => {
+      state.view.pokemonSearch.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        if (+body.pokemonInput.value === body.pkMin || body.pokemonInput.value === "?") {
+        if (+state.view.pokemonInput.value === state.view.pkMin || state.view.pokemonInput.value === "?") {
           missingNo();
-        } else if (+body.pokemonInput.value < body.pkMin || +body.pokemonInput.value > body.pkMax) {
+        } else if (+state.view.pokemonInput.value < state.view.pkMin || +state.view.pokemonInput.value > state.view.pkMax) {
           notFound();
         } else {
-          removeClass(body.randomField, "hidden");
+          removeClass(state.view.randomField, "hidden");
           clearFields();
-          searchPokemon(body.pokemonInput.value);
+          searchPokemon(state.view.pokemonInput.value);
         }
       });
     }
     formSearch();
 
     function btnSearch() {
-      body.btnBefore.addEventListener("click", () => {
-        if (pkID >= 2) {
-          pkID--;
-          addClass(body.randomField, "hidden");
+      state.view.btnBefore.addEventListener("click", () => {
+        if (state.values.id >= 2) {
+          state.values.id--;
+          addClass(state.view.randomField, "hidden");
           clearFields();
-          searchPokemon(pkID);
-          body.randomField.classList.toggle("hidden");
+          searchPokemon(state.values.id);
+          state.view.randomField.classList.toggle("hidden");
         }
       });
 
-      body.btnNext.addEventListener("click", () => {
-        pkID++;
-        if (pkID > body.pkMax) {
-          pkID--;
+      state.view.btnNext.addEventListener("click", () => {
+        state.values.id++;
+        if (state.values.id > state.view.pkMax) {
+          state.values.id--;
         } else {
-          addClass(body.randomField, "hidden");
+          addClass(state.view.randomField, "hidden");
           clearFields();
-          searchPokemon(pkID);
-          body.randomField.classList.toggle("hidden");
+          searchPokemon(state.values.id);
+          state.view.randomField.classList.toggle("hidden");
         }
       });
     }
     btnSearch();
 
     function randomPokemon() {
-      body.randomField.addEventListener("click", () => {
-        hideSpan(body.randomMsg);
-        pkID = Math.floor(Math.random() * (body.pkMax - body.pkMin) + body.pkMin);
+      state.view.randomField.addEventListener("click", () => {
+        hideSpan(state.view.randomMsg);
+        state.values.id = Math.floor(Math.random() * (state.view.pkMax - state.view.pkMin) + state.view.pkMin);
         clearFields();
-        searchPokemon(pkID);
+        searchPokemon(state.values.id);
       });
-      eventListener(body.randomField, "mouseenter", () => showSpan(body.randomMsg));
-      eventListener(body.randomField, "mouseleave", () => hideSpan(body.randomMsg));
+      eventListener(state.view.randomField, "mouseenter", () => showSpan(state.view.randomMsg));
+      eventListener(state.view.randomField, "mouseleave", () => hideSpan(state.view.randomMsg));
     }
     randomPokemon();
 
     function setPokemonCries() {
-      if (body.btnVolumeOn.classList.contains("hidden")) {
+      if (state.view.btnVolumeOn.classList.contains("hidden")) {
       } else {
-        body.pokemonCries.setAttribute("src", pkCries);
-        body.pokemonCries.volume = 0.25;
-        body.pokemonCries.play();
+        state.view.pokemonCries.setAttribute("src", state.values.cries.latest);
+        state.view.pokemonCries.volume = 0.25;
+        state.view.pokemonCries.play();
       }
     }
 
     function setVolume() {
-      body.btnVolumeOn.addEventListener("click", () => {
-        body.switchAudio.setAttribute("src", "");
-        body.failAudio.setAttribute("src", "");
-        body.pokemonCries.setAttribute("src", "");
-        body.btnVolumeOn.classList.toggle("hidden");
-        body.btnVolumeOff.classList.toggle("hidden");
-        body.volMSG.innerHTML = "Off";
+      state.view.btnVolumeOn.addEventListener("click", () => {
+        state.view.switchAudio.setAttribute("src", "");
+        state.view.failAudio.setAttribute("src", "");
+        state.view.pokemonCries.setAttribute("src", "");
+        state.view.btnVolumeOn.classList.toggle("hidden");
+        state.view.btnVolumeOff.classList.toggle("hidden");
+        state.view.volMSG.innerHTML = "Off";
       });
-      body.btnVolumeOff.addEventListener("click", () => {
-        body.switchAudio.setAttribute("src", "./assets/audio/switch.ogg");
-        body.failAudio.setAttribute("src", "./assets/audio/fail.ogg");
-        body.btnVolumeOn.classList.toggle("hidden");
-        body.btnVolumeOff.classList.toggle("hidden");
-        body.volMSG.innerHTML = "On";
+      state.view.btnVolumeOff.addEventListener("click", () => {
+        state.view.switchAudio.setAttribute("src", "./assets/audio/switch.ogg");
+        state.view.failAudio.setAttribute("src", "./assets/audio/fail.ogg");
+        state.view.btnVolumeOn.classList.toggle("hidden");
+        state.view.btnVolumeOff.classList.toggle("hidden");
+        state.view.volMSG.innerHTML = "On";
       });
     }
     setVolume();
@@ -284,10 +300,10 @@ function init() {
       element.addEventListener(event, fctn);
     }
 
-    eventListener(body.btnVolumeOn, "mouseenter", () => showSpan(body.volMSG));
-    eventListener(body.btnVolumeOn, "mouseleave", () => hideSpan(body.volMSG));
-    eventListener(body.btnVolumeOff, "mouseenter", () => showSpan(body.volMSG));
-    eventListener(body.btnVolumeOff, "mouseleave", () => hideSpan(body.volMSG));
+    eventListener(state.view.btnVolumeOn, "mouseenter", () => showSpan(state.view.volMSG));
+    eventListener(state.view.btnVolumeOn, "mouseleave", () => hideSpan(state.view.volMSG));
+    eventListener(state.view.btnVolumeOff, "mouseenter", () => showSpan(state.view.volMSG));
+    eventListener(state.view.btnVolumeOff, "mouseleave", () => hideSpan(state.view.volMSG));
 
     function showSpan(element) {
       element.style.transition = "1s";
