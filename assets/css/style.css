@@ -33,7 +33,7 @@ body {
   }
 }
 #tvBezel {
-  width: 100vw;
+  width: 100dvw;
 }
 #pokemonSprite {
   transform: translate(-5%, 0%);

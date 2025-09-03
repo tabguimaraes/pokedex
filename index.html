@@ -1,12 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quem é esse Pokémon?</title>
-    <link rel="shortcut icon" href="./assets/img/favicon-16x16.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="./assets/img/favicon-16x16.png"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/output.css" />
   </head>
   <body>
     <section id="container" class="hidden">
@@ -14,21 +19,52 @@
       <img id="pokemonSprite" class="elementPositionAbsolute" />
       <p id="pokemonName" class="fontsCommonStyles elementPositionAbsolute"></p>
       <p id="pokemonType" class="fontsCommonStyles elementPositionAbsolute"></p>
-      <p id="pokemonHeight" class="fontsCommonStyles elementPositionAbsolute"></p>
-      <p id="pokemonWeight" class="fontsCommonStyles elementPositionAbsolute"></p>
+      <p
+        id="pokemonHeight"
+        class="fontsCommonStyles elementPositionAbsolute"
+      ></p>
+      <p
+        id="pokemonWeight"
+        class="fontsCommonStyles elementPositionAbsolute"
+      ></p>
       <form id="pokemonSearch">
-        <input id="pokemonInput" class="fontsCommonStyles elementPositionAbsolute" type="text" required placeholder="Nome ou número" autofocus />
+        <input
+          id="pokemonInput"
+          class="fontsCommonStyles elementPositionAbsolute"
+          type="text"
+          required
+          placeholder="Nome ou número"
+          autofocus
+        />
       </form>
       <p id="btnBefore" class="btnStyle elementPositionAbsolute">&lt;&lt;</p>
       <p id="btnNext" class="btnStyle elementPositionAbsolute">&gt;&gt;</p>
       <div id="randomField" class="elementPositionAbsolute">
-        <span id="randomMsg" class="hiddenMsgs fontsCommonStyles elementPositionAbsolute">Random</span>
+        <span
+          id="randomMsg"
+          class="hiddenMsgs fontsCommonStyles elementPositionAbsolute"
+          >Random</span
+        >
       </div>
       <i class="btnVol fa-solid fa-volume-high"></i>
       <i class="btnVol fa-solid fa-volume-xmark fa-beat-fade hidden"></i>
-      <span id="volMSG" class="hiddenMsgs fontsCommonStyles elementPositionAbsolute">On</span>
-      <audio id="switchAudio" src="./assets/audio/switch.ogg" preload="auto" loop></audio>
-      <audio id="failAudio" src="./assets/audio/fail.ogg" preload="auto" loop></audio>
+      <span
+        id="volMSG"
+        class="hiddenMsgs fontsCommonStyles elementPositionAbsolute"
+        >On</span
+      >
+      <audio
+        id="switchAudio"
+        src="./assets/audio/switch.ogg"
+        preload="auto"
+        loop
+      ></audio>
+      <audio
+        id="failAudio"
+        src="./assets/audio/fail.ogg"
+        preload="auto"
+        loop
+      ></audio>
       <audio id="pokemonCries" src="" preload="auto"></audio>
     </section>
     <script src="assets/js/main.js"></script>
